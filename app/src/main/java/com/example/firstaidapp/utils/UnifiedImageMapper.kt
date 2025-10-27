@@ -1,4 +1,3 @@
-package com.example.firstaidapp.utils
+// This file was archived to archive/removed/UnifiedImageMapper.original.kt
+// Implement image mapping logic in a single place when needed (e.g. ImageLoader or a dedicated helper).
 
-// Helper to map various image sources (resource name, URL) to a unified representation
-// (Placeholder: actual mapping logic may be implemented elsewhere)

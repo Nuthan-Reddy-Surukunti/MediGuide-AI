@@ -1,4 +1,4 @@
-package com.example.firstaidapp.data
+package com.example.firstaidapp.data.models
 
 // User's medical info model used for emergency details
 
@@ -15,3 +15,4 @@ data class MedicalInfo(
     val doctorName: String = "",
     val doctorContact: String = ""
 )
+

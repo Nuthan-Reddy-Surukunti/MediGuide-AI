@@ -18,3 +18,6 @@ object NotificationHelper {
         getManager(context).scheduleDailyNotifications()
     }
 }
+
+// This file was archived to archive/removed/NotificationHelper.original.kt
+// Calls should use `LearningNotificationManager` directly.

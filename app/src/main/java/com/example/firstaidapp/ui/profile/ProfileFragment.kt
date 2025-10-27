@@ -11,9 +11,11 @@ import android.widget.Toast
 import androidx.cardview.widget.CardView
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.ViewModelProvider
+import androidx.navigation.fragment.findNavController
 import com.example.firstaidapp.R
 import com.google.android.material.button.MaterialButton
 import com.google.android.material.switchmaterial.SwitchMaterial
+import com.google.firebase.auth.FirebaseAuth
 
 /**
  * ProfileFragment - User profile and medical information
@@ -28,6 +30,7 @@ class ProfileFragment : Fragment() {
     private lateinit var tvProfileBio: TextView
     private lateinit var btnEditProfile: MaterialButton
     private lateinit var switchDarkMode: SwitchMaterial
+    private lateinit var btnSignOut: MaterialButton
 
     // Medical Info UI elements
     private lateinit var cardMedicalInfo: CardView
@@ -70,6 +73,7 @@ class ProfileFragment : Fragment() {
         tvProfileBio = view.findViewById(R.id.tv_profile_bio)
         btnEditProfile = view.findViewById(R.id.btn_edit_profile)
         switchDarkMode = view.findViewById(R.id.switch_dark_mode)
+        btnSignOut = view.findViewById(R.id.btn_sign_out)
 
         // Medical info elements
         cardMedicalInfo = view.findViewById(R.id.card_medical_info)
@@ -127,6 +131,13 @@ class ProfileFragment : Fragment() {
         // Edit medical info button
         btnEditMedicalInfo.setOnClickListener {
             showEditMedicalInfoDialog()
+        }
+
+        // Sign out
+        btnSignOut.setOnClickListener {
+            FirebaseAuth.getInstance().signOut()
+            Toast.makeText(requireContext(), "Signed out", Toast.LENGTH_SHORT).show()
+            findNavController().navigate(R.id.loginFragment)
         }
     }
 
@@ -193,4 +204,3 @@ class ProfileFragment : Fragment() {
             .show()
     }
 }
-

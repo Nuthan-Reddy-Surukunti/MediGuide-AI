@@ -14,6 +14,7 @@ import androidx.navigation.ui.setupWithNavController
 import com.example.firstaidapp.utils.DialogHelper
 import com.example.firstaidapp.voice.VoicePermissionManager
 import com.google.android.material.bottomnavigation.BottomNavigationView
+import com.google.firebase.auth.FirebaseAuth
 
 /**
  * MainActivity - Main entry point of the First Aid Emergency Guide App
@@ -21,6 +22,7 @@ import com.google.android.material.bottomnavigation.BottomNavigationView
 class MainActivity : AppCompatActivity() {
 
     private lateinit var voicePermissionManager: VoicePermissionManager
+    private val auth: FirebaseAuth by lazy { FirebaseAuth.getInstance() }
 
     // Permission launcher for requesting multiple permissions
     private val permissionLauncher = registerForActivityResult(
@@ -49,11 +51,18 @@ class MainActivity : AppCompatActivity() {
 
             setupNavigation()
 
-            // Show learning dialogs using simplified DialogHelper
-            showLearningDialogs()
+            // Only show learning dialogs if user is authenticated and not on auth screens
+            if (auth.currentUser != null) {
+                showLearningDialogs()
+            }
 
             // Request required permissions for AI voice assistant
             requestRequiredPermissions()
+
+            // Navigate to login if not authenticated
+            if (auth.currentUser == null) {
+                navigateToLogin()
+            }
 
         } catch (e: Exception) {
             e.printStackTrace()
@@ -77,6 +86,11 @@ class MainActivity : AppCompatActivity() {
 
             if (navController != null) {
                 bottomNavigationView?.setupWithNavController(navController)
+
+                navController.addOnDestinationChangedListener { _, destination, _ ->
+                    val isAuthScreen = destination.id == R.id.loginFragment || destination.id == R.id.signUpFragment
+                    bottomNavigationView?.visibility = if (isAuthScreen) android.view.View.GONE else android.view.View.VISIBLE
+                }
             }
 
         } catch (e: Exception) {
@@ -123,6 +137,16 @@ class MainActivity : AppCompatActivity() {
         } catch (e: Exception) {
             e.printStackTrace()
             // Navigation failed, but app can still work
+        }
+    }
+
+    private fun navigateToLogin() {
+        try {
+            val navHostFragment = supportFragmentManager.findFragmentById(R.id.nav_host_fragment) as? NavHostFragment
+            val navController = navHostFragment?.navController
+            navController?.navigate(R.id.loginFragment)
+        } catch (e: Exception) {
+            e.printStackTrace()
         }
     }
 

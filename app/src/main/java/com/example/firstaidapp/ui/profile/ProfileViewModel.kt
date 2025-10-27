@@ -4,8 +4,8 @@ import android.app.Application
 import androidx.lifecycle.AndroidViewModel
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
-import com.example.firstaidapp.data.MedicalInfo
-import com.example.firstaidapp.data.UserProfile
+import com.example.firstaidapp.data.models.MedicalInfo
+import com.example.firstaidapp.data.models.UserProfile
 import com.example.firstaidapp.utils.UserPreferencesManager
 
 /**
@@ -115,4 +115,3 @@ class ProfileViewModel(application: Application) : AndroidViewModel(application)
         prefsManager.isDarkModeEnabled = !prefsManager.isDarkModeEnabled
     }
 }
-

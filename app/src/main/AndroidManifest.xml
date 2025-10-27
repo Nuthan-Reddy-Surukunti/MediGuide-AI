@@ -75,6 +75,7 @@
             android:enabled="true"
             android:exported="false" />
 
+        <!-- Support vector drawables (no change) -->
     </application>
 
 </manifest>

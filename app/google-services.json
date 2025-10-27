@@ -13,7 +13,12 @@
           "package_name": "com.example.firstaidapp"
         }
       },
-      "oauth_client": [],
+      "oauth_client": [
+        {
+          "client_id": "938038014371-ubvhrr02fsqifv0p60o786m0m275e8no.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
       "api_key": [
         {
           "current_key": "AIzaSyDxEMdxIRXa080J8lLf94mCSytk-qVxraY"
@@ -21,10 +26,16 @@
       ],
       "services": {
         "appinvite_service": {
-          "other_platform_oauth_client": []
+          "other_platform_oauth_client": [
+            {
+              "client_id": "938038014371-ubvhrr02fsqifv0p60o786m0m275e8no.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
         }
       }
     }
   ],
   "configuration_version": "1"
 }
+

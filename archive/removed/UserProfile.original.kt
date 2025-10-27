@@ -1,6 +1,7 @@
 package com.example.firstaidapp.data
 
-// Simple data holder for user profile information
+// Original UserProfile data class (archived)
+
 /**
  * Data class representing user profile information
  */
@@ -10,3 +11,4 @@ data class UserProfile(
     val profileImageUri: String = "",
     val dateJoined: Long = System.currentTimeMillis()
 )
+
