@@ -5,6 +5,7 @@ import android.util.Log
 import androidx.work.CoroutineWorker
 import androidx.work.WorkerParameters
 
+// Worker to initialize data (used by WorkManager on app setup)
 class DataInitializationWorker(appContext: Context, params: WorkerParameters): CoroutineWorker(appContext, params) {
 
     private val TAG = "DataInitWorker"

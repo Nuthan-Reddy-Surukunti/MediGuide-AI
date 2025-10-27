@@ -1,5 +1,7 @@
 package com.example.firstaidapp.ui.guide
 
+// Adapter for displaying guide steps with expandable details and media
+
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup

@@ -7,6 +7,7 @@ import androidx.fragment.app.Fragment
 import com.google.android.material.snackbar.Snackbar
 import kotlinx.coroutines.CoroutineExceptionHandler
 
+// Centralized error handling utilities (logging + user messages)
 object ErrorHandler {
     const val TAG = "FirstAidApp_ErrorHandler"
 

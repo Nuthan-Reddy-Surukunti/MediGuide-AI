@@ -1,5 +1,7 @@
 package com.example.firstaidapp.ui.home
 
+// Adapter for displaying guide cards on the home screen
+
 import android.view.LayoutInflater
 import android.view.ViewGroup
 import androidx.recyclerview.widget.DiffUtil
@@ -15,6 +17,7 @@ class GuideAdapter(
     private val onViewDemoClick: (String) -> Unit
 ) : ListAdapter<FirstAidGuide, GuideAdapter.GuideViewHolder>(GuideDiffCallback()) {
 
+    // Inflate item layout and create view holder
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): GuideViewHolder {
         val binding = ItemGuideCardBinding.inflate(
             LayoutInflater.from(parent.context),
@@ -24,6 +27,7 @@ class GuideAdapter(
         return GuideViewHolder(binding)
     }
 
+    // Bind the guide data to the view holder
     override fun onBindViewHolder(holder: GuideViewHolder, position: Int) {
         holder.bind(getItem(position))
     }
@@ -32,6 +36,7 @@ class GuideAdapter(
         private val binding: ItemGuideCardBinding
     ) : RecyclerView.ViewHolder(binding.root) {
 
+        // Populate UI with guide data and hook up click listeners
         fun bind(guide: FirstAidGuide) {
             binding.tvGuideTitle.text = guide.title
             binding.tvGuideDescription.text = guide.description
@@ -58,19 +63,19 @@ class GuideAdapter(
                 )
             }
 
-            // Removed all animations - immediate click response
+            // Handle guide card click -> navigate or open detail
             binding.root.setOnClickListener {
                 onGuideClick(guide)
             }
 
-            // Set click listener for View Demo button
+            // View Demo click -> open video if available
             binding.tvViewDemo.setOnClickListener {
                 if (guide.youtubeLink?.isNotEmpty() == true) {
                     onViewDemoClick(guide.youtubeLink ?: "")
                 }
             }
 
-            // Show/hide demo button based on YouTube link availability
+            // Show or hide demo button based on availability
             binding.tvViewDemo.visibility = if (guide.youtubeLink?.isNotEmpty() == true) {
                 android.view.View.VISIBLE
             } else {
@@ -79,6 +84,7 @@ class GuideAdapter(
         }
     }
 
+    // Diff callback for efficient list updates
     class GuideDiffCallback : DiffUtil.ItemCallback<FirstAidGuide>() {
         override fun areItemsTheSame(oldItem: FirstAidGuide, newItem: FirstAidGuide): Boolean {
             return oldItem.id == newItem.id

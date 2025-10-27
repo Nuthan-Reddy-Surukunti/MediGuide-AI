@@ -1,5 +1,7 @@
 package com.example.firstaidapp.data.repository
 
+// Static data source for emergency contacts (national + state-specific)
+
 import com.example.firstaidapp.data.models.ContactType
 import com.example.firstaidapp.data.models.EmergencyContact
 

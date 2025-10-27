@@ -1,5 +1,6 @@
 package com.example.firstaidapp.utils
 
+// Initializes default guides and emergency contacts into the database on first run
 import android.content.Context
 import android.util.Log
 import androidx.core.content.edit

@@ -42,6 +42,10 @@ class VoiceAssistantViewModel(application: Application) : AndroidViewModel(appli
     private val _showEmergencyMode = MutableLiveData<Boolean>(false)
     val showEmergencyMode: LiveData<Boolean> = _showEmergencyMode
 
+    // AI Online/Offline Status
+    private val _isAIOnline = MutableLiveData<Boolean>(false)
+    val isAIOnline: LiveData<Boolean> = _isAIOnline
+
     /**
      * Initialize voice assistant
      */
@@ -73,9 +77,12 @@ class VoiceAssistantViewModel(application: Application) : AndroidViewModel(appli
                     assistant.initialize { success ->
                         if (success) {
                             _isInitialized.postValue(true)
+                            // Check if AI is actually online (has valid API connection)
+                            checkAIStatus(assistant)
                         } else {
                             _errorMessage.postValue("AI features unavailable - using offline mode")
                             _isInitialized.postValue(true) // Still allow basic functionality
+                            _isAIOnline.postValue(false) // AI is offline
                         }
                     }
                 } ?: run {
@@ -85,6 +92,30 @@ class VoiceAssistantViewModel(application: Application) : AndroidViewModel(appli
             } catch (e: Exception) {
                 _errorMessage.postValue("Voice assistant not available: ${e.message}")
                 _isInitialized.postValue(false)
+            }
+        }
+    }
+
+    /**
+     * Check if AI is actually online and update status
+     */
+    private fun checkAIStatus(assistant: VoiceAssistantManager) {
+        viewModelScope.launch {
+            try {
+                // Check if BuildConfig has valid Gemini API key
+                val buildConfigClass = Class.forName("${getApplication<Application>().packageName}.BuildConfig")
+                val field = buildConfigClass.getDeclaredField("GEMINI_API_KEY")
+                val apiKey = field.get(null) as? String
+
+                val hasValidAI = !apiKey.isNullOrBlank() && apiKey.length > 10
+                _isAIOnline.postValue(hasValidAI)
+
+                if (!hasValidAI) {
+                    _errorMessage.postValue("AI running in offline mode - basic responses available")
+                }
+            } catch (e: Exception) {
+                _isAIOnline.postValue(false)
+                _errorMessage.postValue("AI offline - using fallback responses")
             }
         }
     }

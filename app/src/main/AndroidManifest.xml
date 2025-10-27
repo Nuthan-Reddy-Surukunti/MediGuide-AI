@@ -12,7 +12,8 @@
 
     <!-- Phone and Contacts Permissions -->
     <uses-permission android:name="android.permission.CALL_PHONE" />
-    <uses-permission android:name="android.permission.READ_CONTACTS" />
+    <!-- READ_CONTACTS is not referenced from the app UI/workflows currently; comment out for now -->
+    <!-- <uses-permission android:name="android.permission.READ_CONTACTS" /> -->
 
     <!-- Location Permissions for GPS Emergency Services -->
     <uses-permission android:name="android.permission.ACCESS_FINE_LOCATION" />
@@ -20,24 +21,29 @@
 
     <!-- Audio and Voice Assistant Permissions -->
     <uses-permission android:name="android.permission.RECORD_AUDIO" />
-    <uses-permission android:name="android.permission.MODIFY_AUDIO_SETTINGS" />
-    <uses-permission android:name="android.permission.BLUETOOTH" />
-    <uses-permission android:name="android.permission.BLUETOOTH_ADMIN" />
+    <!-- MODIFY_AUDIO_SETTINGS is not used (no AudioManager calls) - comment out until needed -->
+    <!-- <uses-permission android:name="android.permission.MODIFY_AUDIO_SETTINGS" /> -->
+    <!-- Bluetooth APIs are not used currently -->
+    <!-- <uses-permission android:name="android.permission.BLUETOOTH" /> -->
+    <!-- <uses-permission android:name="android.permission.BLUETOOTH_ADMIN" /> -->
 
     <!-- System Permissions -->
-    <uses-permission android:name="android.permission.WAKE_LOCK" />
-    <uses-permission android:name="android.permission.VIBRATE" />
-    <uses-permission android:name="android.permission.FOREGROUND_SERVICE" />
-    <uses-permission android:name="android.permission.FOREGROUND_SERVICE_MICROPHONE" />
+    <!-- Wake-lock, vibrate and foreground service microphone are not used directly in code -->
+    <!-- <uses-permission android:name="android.permission.WAKE_LOCK" /> -->
+    <!-- <uses-permission android:name="android.permission.VIBRATE" /> -->
+    <!-- <uses-permission android:name="android.permission.FOREGROUND_SERVICE" /> -->
+    <!-- <uses-permission android:name="android.permission.FOREGROUND_SERVICE_MICROPHONE" /> -->
 
     <!-- Storage Permissions (Android 13+ compatible) -->
-    <uses-permission android:name="android.permission.READ_MEDIA_IMAGES" />
-    <uses-permission android:name="android.permission.READ_MEDIA_VIDEO" />
-    <uses-permission android:name="android.permission.READ_MEDIA_AUDIO" />
+    <!-- Not used: media read permissions commented out for now -->
+    <!-- <uses-permission android:name="android.permission.READ_MEDIA_IMAGES" /> -->
+    <!-- <uses-permission android:name="android.permission.READ_MEDIA_VIDEO" /> -->
+    <!-- <uses-permission android:name="android.permission.READ_MEDIA_AUDIO" /> -->
 
     <!-- Notification Permissions -->
     <uses-permission android:name="android.permission.POST_NOTIFICATIONS" />
-    <uses-permission android:name="android.permission.SCHEDULE_EXACT_ALARM" />
+    <!-- SCHEDULE_EXACT_ALARM not required for current AlarmManager.setRepeating usage -->
+    <!-- <uses-permission android:name="android.permission.SCHEDULE_EXACT_ALARM" /> -->
 
     <application
         android:name=".FirstAidApplication"

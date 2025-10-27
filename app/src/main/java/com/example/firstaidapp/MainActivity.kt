@@ -1,5 +1,7 @@
 package com.example.firstaidapp
 
+// MainActivity: app entry, permissions, and navigation setup
+
 import android.os.Bundle
 import androidx.activity.enableEdgeToEdge
 import androidx.activity.result.contract.ActivityResultContracts
@@ -9,8 +11,7 @@ import androidx.core.view.ViewCompat
 import androidx.core.view.WindowInsetsCompat
 import androidx.navigation.fragment.NavHostFragment
 import androidx.navigation.ui.setupWithNavController
-import com.example.firstaidapp.utils.LearningDialogManager
-import com.example.firstaidapp.utils.LearningNotificationManager
+import com.example.firstaidapp.utils.DialogHelper
 import com.example.firstaidapp.voice.VoicePermissionManager
 import com.google.android.material.bottomnavigation.BottomNavigationView
 
@@ -20,8 +21,6 @@ import com.google.android.material.bottomnavigation.BottomNavigationView
 class MainActivity : AppCompatActivity() {
 
     private lateinit var voicePermissionManager: VoicePermissionManager
-    private lateinit var learningDialogManager: LearningDialogManager
-    private lateinit var learningNotificationManager: LearningNotificationManager
 
     // Permission launcher for requesting multiple permissions
     private val permissionLauncher = registerForActivityResult(
@@ -50,11 +49,7 @@ class MainActivity : AppCompatActivity() {
 
             setupNavigation()
 
-            // Initialize learning managers
-            learningDialogManager = LearningDialogManager(this)
-            learningNotificationManager = LearningNotificationManager(this)
-
-            // Show learning dialogs
+            // Show learning dialogs using simplified DialogHelper
             showLearningDialogs()
 
             // Request required permissions for AI voice assistant
@@ -98,9 +93,9 @@ class MainActivity : AppCompatActivity() {
         window.decorView.post {
             try {
                 // Show welcome dialog first for new users
-                learningDialogManager.showWelcomeDialog {
+                DialogHelper.showWelcomeDialog(this) {
                     // After welcome dialog, show daily reminder if applicable
-                    learningDialogManager.showDailyReminderDialog {
+                    DialogHelper.showDailyReminderDialog(this) {
                         // When user clicks "Start Learning", navigate to home screen
                         navigateToHomeScreen()
                     }
@@ -179,18 +174,7 @@ class MainActivity : AppCompatActivity() {
      * Show rationale dialog explaining why permissions are needed
      */
     private fun showPermissionRationaleDialog(onPositive: () -> Unit) {
-        AlertDialog.Builder(this)
-            .setTitle(getString(R.string.permission_required))
-            .setMessage(getString(R.string.permission_microphone_rationale) + "\n\n" +
-                       getString(R.string.permission_location_rationale) + "\n\n" +
-                       getString(R.string.permission_call_rationale))
-            .setPositiveButton(getString(R.string.allow)) { _, _ ->
-                onPositive()
-            }
-            .setNegativeButton(getString(R.string.cancel)) { dialog, _ ->
-                dialog.dismiss()
-            }
-            .show()
+        DialogHelper.showPermissionRationaleDialog(this, onPositive)
     }
 
     /**

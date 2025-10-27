@@ -3,6 +3,7 @@ package com.example.firstaidapp.ui.home
 import com.example.firstaidapp.R
 import com.example.firstaidapp.data.models.FirstAidGuide
 
+// Data class representing a guide category and its guides
 data class GuideCategory(
     val title: String,
     val icon: String, // Emoji icon
@@ -12,6 +13,7 @@ data class GuideCategory(
 
 object GuideCategories {
 
+    // Predefined category list with titles, icons and descriptions
     val categories = listOf(
         GuideCategory(
             title = "Life-Threatening Emergencies",
@@ -39,6 +41,7 @@ object GuideCategories {
         )
     )
 
+    // Mapping of category titles to guide title keywords used for grouping
     private val categoryMappings = mapOf(
         "Life-Threatening Emergencies" to listOf("CPR", "Choking", "Heart Attack", "Stroke", "Drowning"),
         "Trauma & Injuries" to listOf("Severe Bleeding", "Burns", "Fractures", "Sprains and Strains", "Eye Injuries", "Nosebleeds"),
@@ -46,6 +49,7 @@ object GuideCategories {
         "Environmental Emergencies" to listOf("Hypothermia", "Heat Exhaustion", "Bites and Stings")
     )
 
+    // Group incoming guides into the predefined categories based on title keywords
     fun getCategorizedGuides(guides: List<FirstAidGuide>): List<GuideCategory> {
         val categoryMap = mutableMapOf<String, MutableList<FirstAidGuide>>().apply {
             categories.forEach { put(it.title, mutableListOf()) }
@@ -59,6 +63,7 @@ object GuideCategories {
             }
         }
 
+        // Return only categories that have at least one matching guide
         return categories.map {
             it.copy(guides = categoryMap[it.title] ?: emptyList())
         }.filter { it.guides.isNotEmpty() }

@@ -1,5 +1,7 @@
 package com.example.firstaidapp
 
+// Application class: performs app-wide initialization
+
 import android.app.Application
 import android.os.Handler
 import android.os.Looper

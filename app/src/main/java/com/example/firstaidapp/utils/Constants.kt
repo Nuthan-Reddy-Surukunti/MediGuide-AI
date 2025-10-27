@@ -1,5 +1,6 @@
 package com.example.firstaidapp.utils
 
+// App-wide constants (numbers, keys, categories)
 object Constants {
     // Emergency Numbers
     const val EMERGENCY_NUMBER_IN = "112"

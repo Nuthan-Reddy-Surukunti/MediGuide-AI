@@ -18,6 +18,7 @@ import androidx.recyclerview.widget.RecyclerView
 import com.example.firstaidapp.databinding.FragmentAllGuidesBinding
 import com.example.firstaidapp.ui.home.CategorizedGuideAdapter
 import com.example.firstaidapp.ui.home.CategoryItem
+import com.example.firstaidapp.ui.home.HomeViewModel
 
 /**
  * AllGuidesFragment - Displays all available first aid guides
@@ -27,7 +28,7 @@ class AllGuidesFragment : Fragment() {
     private var _binding: FragmentAllGuidesBinding? = null
     private val binding get() = _binding!!
 
-    private lateinit var viewModel: AllGuidesViewModel
+    private lateinit var viewModel: HomeViewModel
     private lateinit var categorizedAdapter: CategorizedGuideAdapter
 
     override fun onCreateView(
@@ -49,7 +50,7 @@ class AllGuidesFragment : Fragment() {
     }
 
     private fun setupViewModel() {
-        viewModel = ViewModelProvider(this)[AllGuidesViewModel::class.java]
+        viewModel = ViewModelProvider(this)[HomeViewModel::class.java]
     }
 
     private fun setupRecyclerView() {

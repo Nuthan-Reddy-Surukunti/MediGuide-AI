@@ -4,6 +4,7 @@ import android.content.Context
 import android.content.Intent
 import android.net.Uri
 
+// Helper to extract video IDs and open YouTube links for guides
 /**
  * Helper class for managing YouTube video links for first aid guides
  * Provides curated educational videos for each emergency procedure
@@ -94,4 +95,3 @@ object YouTubeVideoHelper {
         }
     }
 }
-

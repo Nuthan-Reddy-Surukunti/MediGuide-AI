@@ -7,6 +7,8 @@ import com.example.firstaidapp.data.models.StepType
 import com.google.gson.Gson
 import com.google.gson.reflect.TypeToken
 
+// Type converters for Room to store enums and lists as JSON/strings
+@Suppress("unused") // methods are used by Room via reflection
 class Converters {
     private val gson = Gson()
 
@@ -55,7 +57,7 @@ class Converters {
     fun toStepType(stepType: String): StepType {
         return try {
             StepType.valueOf(stepType)
-        } catch (e: IllegalArgumentException) {
+        } catch (_: IllegalArgumentException) {
             StepType.ACTION // Default fallback
         }
     }

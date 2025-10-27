@@ -1,5 +1,7 @@
 package com.example.firstaidapp.utils
 
+// Accessibility helpers: live region announcements and descriptive content for views
+
 import android.content.Context
 import android.view.View
 import android.view.accessibility.AccessibilityEvent

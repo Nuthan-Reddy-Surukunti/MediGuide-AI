@@ -4,6 +4,7 @@ import android.content.Context
 import android.provider.ContactsContract
 import com.example.firstaidapp.data.models.PhoneContact
 
+// Helper to read and normalize device phone contacts (requires permission)
 object ContactsHelper {
 
     /**
@@ -78,4 +79,3 @@ object ContactsHelper {
         }
     }
 }
-

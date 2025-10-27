@@ -4,6 +4,7 @@ import android.content.Context
 import android.content.SharedPreferences
 import androidx.core.content.edit
 
+// Manager for storing and retrieving user preferences via SharedPreferences
 class UserPreferencesManager(context: Context) {
     private val prefs: SharedPreferences = context.getSharedPreferences(PREFS_NAME, Context.MODE_PRIVATE)
 
@@ -285,4 +286,3 @@ class UserPreferencesManager(context: Context) {
         }
     }
 }
-

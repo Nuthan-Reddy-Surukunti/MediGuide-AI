@@ -20,10 +20,13 @@ class CategorizedGuideAdapter(
 ) : ListAdapter<CategoryItem, RecyclerView.ViewHolder>(CategoryItemDiffCallback()) {
 
     companion object {
+        // View type for category header
         private const val VIEW_TYPE_CATEGORY_HEADER = 0
+        // View type for a guide item
         private const val VIEW_TYPE_GUIDE_ITEM = 1
     }
 
+    // Determine view type based on the CategoryItem sealed class
     override fun getItemViewType(position: Int): Int {
         return when (getItem(position)) {
             is CategoryItem.CategoryHeader -> VIEW_TYPE_CATEGORY_HEADER
@@ -31,6 +34,7 @@ class CategorizedGuideAdapter(
         }
     }
 
+    // Inflate the appropriate view holder for each view type
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): RecyclerView.ViewHolder {
         return when (viewType) {
             VIEW_TYPE_CATEGORY_HEADER -> {
@@ -50,6 +54,7 @@ class CategorizedGuideAdapter(
         }
     }
 
+    // Bind data to either header or guide view holder
     override fun onBindViewHolder(holder: RecyclerView.ViewHolder, position: Int) {
         when (val item = getItem(position)) {
             is CategoryItem.CategoryHeader -> {
@@ -62,20 +67,22 @@ class CategorizedGuideAdapter(
     }
 
     inner class CategoryHeaderViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView) {
+        // Cache header views
         private val tvCategoryTitle: TextView = itemView.findViewById(R.id.tvCategoryTitle)
         private val tvCategoryDescription: TextView = itemView.findViewById(R.id.tvCategoryDescription)
         private val tvCategoryIcon: TextView = itemView.findViewById(R.id.tvCategoryIcon)
         private val tvGuideCount: TextView = itemView.findViewById(R.id.tvGuideCount)
         private val tvExpandIcon: TextView = itemView.findViewById(R.id.tvExpandIcon)
 
+        // Bind header data and hook category click to toggle
         fun bind(categoryHeader: CategoryItem.CategoryHeader) {
             tvCategoryTitle.text = categoryHeader.title
             tvCategoryDescription.text = categoryHeader.description
             tvCategoryIcon.text = categoryHeader.icon
             tvGuideCount.text = "${categoryHeader.guideCount} guides"
 
-            // Set expand/collapse icon
-            tvExpandIcon.text = if (categoryHeader.isExpanded) "▼" else "▶"
+            // Show caret based on expanded state
+            tvExpandIcon.text = if (categoryHeader.isExpanded) "\u25bc" else "\u25b6"
 
             itemView.setOnClickListener {
                 onCategoryClick(categoryHeader.title)
@@ -87,17 +94,18 @@ class CategorizedGuideAdapter(
         private val binding: ItemGuideCardBinding
     ) : RecyclerView.ViewHolder(binding.root) {
 
+        // Bind guide item view with data and listeners
         fun bind(guide: FirstAidGuide) {
             binding.tvGuideTitle.text = guide.title
             binding.tvGuideDescription.text = guide.description
             binding.tvCategory.text = guide.category
             binding.tvSeverity.text = guide.severity
 
-            // Set guide icon based on category - using fallback icon
+            // Use fallback icon for guides
             val iconResource = R.drawable.ic_medical_default
             binding.ivGuideImage.setImageResource(iconResource)
 
-            // Set severity color
+            // Map severity to color resource
             val severityColor = when (guide.severity.uppercase()) {
                 "CRITICAL" -> R.color.severity_critical
                 "HIGH" -> R.color.severity_high
@@ -106,19 +114,19 @@ class CategorizedGuideAdapter(
             }
             binding.tvSeverity.setBackgroundResource(severityColor)
 
-            // Set click listener for navigation
+            // Click to open guide detail
             binding.root.setOnClickListener {
                 onGuideClick(guide)
             }
 
-            // Set click listener for View Demo button
+            // View demo video if link present
             binding.tvViewDemo.setOnClickListener {
                 if (guide.youtubeLink?.isNotEmpty() == true) {
                     onViewDemoClick(guide.youtubeLink ?: "")
                 }
             }
 
-            // Show/hide demo button based on YouTube link availability
+            // Show or hide demo button
             binding.tvViewDemo.visibility = if (guide.youtubeLink?.isNotEmpty() == true) {
                 android.view.View.VISIBLE
             } else {
@@ -127,6 +135,7 @@ class CategorizedGuideAdapter(
         }
     }
 
+    // Diff callback for efficient list updates
     class CategoryItemDiffCallback : DiffUtil.ItemCallback<CategoryItem>() {
         override fun areItemsTheSame(oldItem: CategoryItem, newItem: CategoryItem): Boolean {
             return when {

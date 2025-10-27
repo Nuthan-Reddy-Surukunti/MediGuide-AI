@@ -22,15 +22,18 @@ import com.example.firstaidapp.data.models.*
 @TypeConverters(Converters::class)
 abstract class AppDatabase : RoomDatabase() {
 
+    // DAO accessors
     abstract fun guideDao(): GuideDao
     abstract fun contactDao(): ContactDao
     abstract fun searchDao(): SearchDao
 
     companion object {
+        // Singleton instance (thread-safe)
         @Volatile
         private var INSTANCE: AppDatabase? = null
 
-        // Migration from 3 to 4: add columns used by queries/UI to first_aid_guides
+        // Migrations: short comment per migration describing intent
+        // 3 -> 4: add user-tracking columns to first_aid_guides
         private val MIGRATION_3_4 = object : Migration(3, 4) {
             override fun migrate(db: SupportSQLiteDatabase) {
                 // Add columns with defaults to satisfy NOT NULL constraints
@@ -40,7 +43,7 @@ abstract class AppDatabase : RoomDatabase() {
             }
         }
 
-        // Migration from 4 to 5: add unique index on emergency_contacts(phoneNumber, type)
+        // 4 -> 5: remove duplicates and add unique index on (phoneNumber, type)
         private val MIGRATION_4_5 = object : Migration(4, 5) {
             override fun migrate(db: SupportSQLiteDatabase) {
                 // Remove duplicates so unique index can be created safely
@@ -56,7 +59,7 @@ abstract class AppDatabase : RoomDatabase() {
             }
         }
 
-        // Migration from 5 to 6: add youtubeLink column to first_aid_guides
+        // 5 -> 6: add youtubeLink to guides
         private val MIGRATION_5_6 = object : Migration(5, 6) {
             override fun migrate(db: SupportSQLiteDatabase) {
                 // Add youtubeLink column with empty string as default
@@ -64,7 +67,7 @@ abstract class AppDatabase : RoomDatabase() {
             }
         }
 
-        // Migration from 6 to 7: add state column to emergency_contacts
+        // 6 -> 7: add state column to emergency_contacts
         private val MIGRATION_6_7 = object : Migration(6, 7) {
             override fun migrate(db: SupportSQLiteDatabase) {
                 // Add state column with NULL as default to allow existing data
@@ -72,7 +75,7 @@ abstract class AppDatabase : RoomDatabase() {
             }
         }
 
-        // Migration from 7 to 8: create guide_steps table
+        // 7 -> 8: create guide_steps table
         private val MIGRATION_7_8 = object : Migration(7, 8) {
             override fun migrate(db: SupportSQLiteDatabase) {
                 // Create guide_steps table (it didn't exist before)
@@ -99,7 +102,7 @@ abstract class AppDatabase : RoomDatabase() {
             }
         }
 
-        // Migration from 8 to 9: fix schema mismatch in first_aid_guides and emergency_contacts
+        // 8 -> 9: standardize first_aid_guides and emergency_contacts schemas
         private val MIGRATION_8_9 = object : Migration(8, 9) {
             override fun migrate(db: SupportSQLiteDatabase) {
                 // Fix first_aid_guides table
@@ -177,6 +180,7 @@ abstract class AppDatabase : RoomDatabase() {
             }
         }
 
+        // Return/create the singleton database instance
         fun getDatabase(context: Context): AppDatabase {
             return INSTANCE ?: synchronized(this) {
                 val instance = Room.databaseBuilder(
@@ -185,7 +189,7 @@ abstract class AppDatabase : RoomDatabase() {
                     "first_aid_database"
                 )
                     .addMigrations(MIGRATION_3_4, MIGRATION_4_5, MIGRATION_5_6, MIGRATION_6_7, MIGRATION_7_8, MIGRATION_8_9)
-                    .fallbackToDestructiveMigration() // Add fallback in case migration fails
+                    .fallbackToDestructiveMigration() // fallback if migrations fail
                     .build()
                 INSTANCE = instance
                 instance

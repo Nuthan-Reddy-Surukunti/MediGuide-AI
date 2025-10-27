@@ -117,18 +117,31 @@ class GeminiAIManager(private val context: Context) {
      */
     private fun getGeminiApiKey(): String {
         return try {
+            Log.d(tag, "Attempting to load API key from BuildConfig...")
+
             // First try to get from BuildConfig
             val buildConfigClass = Class.forName("${context.packageName}.BuildConfig")
+            Log.d(tag, "BuildConfig class loaded: ${buildConfigClass.name}")
+
             val field = buildConfigClass.getDeclaredField("GEMINI_API_KEY")
+            Log.d(tag, "GEMINI_API_KEY field found: ${field.name}")
+
             val apiKey = field.get(null) as? String ?: ""
+            Log.d(tag, "API key retrieved. Length: ${apiKey.length}, Is blank: ${apiKey.isBlank()}")
 
             if (apiKey.isBlank()) {
-                Log.w(tag, "API key is blank or empty")
+                Log.w(tag, "API key is blank or empty - check your local.properties file and rebuild the app")
                 return ""
             }
 
-            Log.d(tag, "API key loaded successfully from BuildConfig")
+            Log.d(tag, "API key loaded successfully from BuildConfig (${apiKey.take(10)}...)")
             return apiKey
+        } catch (e: NoSuchFieldException) {
+            Log.w(tag, "GEMINI_API_KEY field not found in BuildConfig - check build.gradle.kts configuration", e)
+            ""
+        } catch (e: ClassNotFoundException) {
+            Log.w(tag, "BuildConfig class not found - this should not happen", e)
+            ""
         } catch (e: Exception) {
             Log.w(tag, "Could not retrieve API key from BuildConfig", e)
             ""

@@ -11,6 +11,7 @@ class CategoryAdapter(
     private val onCategoryClick: (String) -> Unit
 ) : ListAdapter<String, CategoryAdapter.CategoryViewHolder>(CategoryDiffCallback()) {
 
+    // Inflate category card layout
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): CategoryViewHolder {
         val binding = ItemCategoryCardBinding.inflate(
             LayoutInflater.from(parent.context),
@@ -20,6 +21,7 @@ class CategoryAdapter(
         return CategoryViewHolder(binding)
     }
 
+    // Bind category string to the card
     override fun onBindViewHolder(holder: CategoryViewHolder, position: Int) {
         holder.bind(getItem(position))
     }
@@ -28,6 +30,7 @@ class CategoryAdapter(
         private val binding: ItemCategoryCardBinding
     ) : RecyclerView.ViewHolder(binding.root) {
 
+        // Set title and guide count placeholder, and handle clicks
         fun bind(category: String) {
             binding.tvCategoryName.text = category
             binding.tvGuideCount.text = "View guides"
@@ -38,6 +41,7 @@ class CategoryAdapter(
         }
     }
 
+    // Simple diff callback comparing category strings
     class CategoryDiffCallback : DiffUtil.ItemCallback<String>() {
         override fun areItemsTheSame(oldItem: String, newItem: String): Boolean {
             return oldItem == newItem

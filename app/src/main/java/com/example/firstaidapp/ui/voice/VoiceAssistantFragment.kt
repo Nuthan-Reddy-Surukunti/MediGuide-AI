@@ -1,5 +1,7 @@
 package com.example.firstaidapp.ui.voice
 
+// UI fragment for interacting with the voice assistant (listen, speak, emergency shortcuts)
+
 import android.Manifest
 import android.content.pm.PackageManager
 import android.os.Bundle
@@ -146,6 +148,11 @@ class VoiceAssistantFragment : Fragment() {
             Toast.makeText(requireContext(), error, Toast.LENGTH_LONG).show()
         }
 
+        // AI Status monitoring
+        viewModel.isAIOnline.observe(viewLifecycleOwner) { isOnline ->
+            updateAIStatusIndicator(isOnline)
+        }
+
         // Initialization status
         viewModel.isInitialized.observe(viewLifecycleOwner) { initialized ->
             if (initialized) {
@@ -166,6 +173,29 @@ class VoiceAssistantFragment : Fragment() {
                 binding.emergencyOverlay.visibility = View.GONE
                 binding.normalModeLayout.visibility = View.VISIBLE
             }
+        }
+    }
+
+    /**
+     * Update the AI status indicator based on online/offline state
+     */
+    private fun updateAIStatusIndicator(isOnline: Boolean) {
+        if (isOnline) {
+            // AI is online - show green indicator
+            binding.aiStatusIndicator.backgroundTintList =
+                ContextCompat.getColorStateList(requireContext(), android.R.color.holo_green_dark)
+            binding.aiStatusText.text = "AI: Online"
+            binding.aiStatusText.setTextColor(
+                ContextCompat.getColor(requireContext(), android.R.color.holo_green_dark)
+            )
+        } else {
+            // AI is offline - show red indicator
+            binding.aiStatusIndicator.backgroundTintList =
+                ContextCompat.getColorStateList(requireContext(), android.R.color.holo_red_dark)
+            binding.aiStatusText.text = "AI: Offline Mode"
+            binding.aiStatusText.setTextColor(
+                ContextCompat.getColor(requireContext(), android.R.color.holo_red_dark)
+            )
         }
     }
 
@@ -241,9 +271,9 @@ class VoiceAssistantFragment : Fragment() {
             .setTitle("Permissions Required")
             .setMessage(
                 "The Voice Assistant needs the following permissions to function properly:\n\n" +
-                permissions.joinToString("\n") { permission ->
-                    "• " + viewModel.getPermissionRationale(permission)
-                }
+                        permissions.joinToString("\n") { permission ->
+                            "• " + viewModel.getPermissionRationale(permission)
+                        }
             )
             .setPositiveButton("Grant") { _, _ ->
                 permissionLauncher.launch(permissions.toTypedArray())
@@ -265,7 +295,7 @@ class VoiceAssistantFragment : Fragment() {
             .setTitle("Permissions Denied")
             .setMessage(
                 "The Voice Assistant cannot function without the required permissions. " +
-                "Please grant permissions in app settings."
+                        "Please grant permissions in app settings."
             )
             .setPositiveButton("OK") { dialog, _ ->
                 dialog.dismiss()
@@ -278,4 +308,3 @@ class VoiceAssistantFragment : Fragment() {
         _binding = null
     }
 }
-

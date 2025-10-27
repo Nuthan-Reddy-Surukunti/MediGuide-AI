@@ -1,5 +1,7 @@
 package com.example.firstaidapp.data.models
 
+// Model representing a first aid guide and its metadata stored in DB
+
 import androidx.room.Entity
 import androidx.room.PrimaryKey
 

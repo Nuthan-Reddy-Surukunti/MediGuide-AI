@@ -1,5 +1,7 @@
 package com.example.firstaidapp.utils
 
+// Location helper: gets current state/region using fused location and geocoder
+
 import android.Manifest
 import android.content.Context
 import android.content.pm.PackageManager

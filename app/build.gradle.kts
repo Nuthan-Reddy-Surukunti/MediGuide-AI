@@ -17,11 +17,14 @@ android {
         versionName = "1.0"
 
         testInstrumentationRunner = "androidx.test.runner.AndroidJUnitRunner"
+
+        // Add API key to default config
+        buildConfigField("String", "GEMINI_API_KEY", "\"AIzaSyA-6SYM1ymRRmRpx5dQg-iTiUbNlT2rapI\"")
     }
 
     buildTypes {
         debug {
-            buildConfigField("String", "GEMINI_API_KEY", "\"${project.findProperty("GEMINI_API_KEY") ?: ""}\"")
+            // Debug configuration - API key inherited from defaultConfig
         }
         release {
             isMinifyEnabled = false
@@ -29,7 +32,7 @@ android {
                 getDefaultProguardFile("proguard-android-optimize.txt"),
                 "proguard-rules.pro"
             )
-            buildConfigField("String", "GEMINI_API_KEY", "\"${project.findProperty("GEMINI_API_KEY") ?: ""}\"")
+            // Release configuration - API key inherited from defaultConfig
         }
     }
     compileOptions {

@@ -30,6 +30,36 @@
                 android:gravity="center"
                 android:layout_marginBottom="8dp"/>
 
+            <!-- AI Status Indicator -->
+            <LinearLayout
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center"
+                android:orientation="horizontal"
+                android:gravity="center_vertical"
+                android:background="@android:drawable/dialog_holo_light_frame"
+                android:padding="8dp"
+                android:layout_marginBottom="16dp">
+
+                <View
+                    android:id="@+id/aiStatusIndicator"
+                    android:layout_width="12dp"
+                    android:layout_height="12dp"
+                    android:background="@android:drawable/presence_online"
+                    android:backgroundTint="#FF5722"
+                    android:layout_marginEnd="8dp"/>
+
+                <TextView
+                    android:id="@+id/aiStatusText"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="AI: Offline Mode"
+                    android:textSize="14sp"
+                    android:textColor="@android:color/darker_gray"
+                    android:textStyle="bold"/>
+
+            </LinearLayout>
+
             <TextView
                 android:id="@+id/statusText"
                 android:layout_width="match_parent"

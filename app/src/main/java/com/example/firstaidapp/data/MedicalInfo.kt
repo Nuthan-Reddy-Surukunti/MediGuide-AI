@@ -1,5 +1,7 @@
 package com.example.firstaidapp.data
 
+// User's medical info model used for emergency details
+
 /**
  * Data class representing user's medical information
  * All data is stored locally for privacy
@@ -13,4 +15,3 @@ data class MedicalInfo(
     val doctorName: String = "",
     val doctorContact: String = ""
 )
-

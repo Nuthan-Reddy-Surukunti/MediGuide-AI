@@ -1,5 +1,7 @@
 package com.example.firstaidapp.voice
 
+// Helper to check and report required permissions for voice assistant
+
 import android.Manifest
 import android.content.Context
 import android.content.pm.PackageManager
@@ -101,4 +103,3 @@ class VoicePermissionManager(private val context: Context) {
         }
     }
 }
-

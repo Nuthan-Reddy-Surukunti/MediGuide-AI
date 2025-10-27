@@ -1,5 +1,7 @@
 package com.example.firstaidapp.data.repository
 
+// Repository that mediates between DAOs and the rest of the app (guides, contacts, searches)
+
 import androidx.lifecycle.LiveData
 import com.example.firstaidapp.data.database.ContactDao
 import com.example.firstaidapp.data.database.GuideDao

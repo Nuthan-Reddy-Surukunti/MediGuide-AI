@@ -1,4 +1,5 @@
 package com.example.firstaidapp.data.repository
+// Hardcoded guide step definitions used by the app (detailed steps per procedure)
 
 import com.example.firstaidapp.R
 import com.example.firstaidapp.data.models.GuideStep
@@ -1202,3 +1203,4 @@ object FirstAidGuidesRepository {
         )
     }
 }
+
