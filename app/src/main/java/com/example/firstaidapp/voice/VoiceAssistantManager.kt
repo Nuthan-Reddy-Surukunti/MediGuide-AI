@@ -317,29 +317,9 @@ class VoiceAssistantManager(private val context: Context) {
                 Log.d(tag, "Navigate to procedure: ${action.procedureId}")
                 // Trigger navigation event
             }
-            is VoiceAction.StartTimer -> {
-                Log.d(tag, "Start timer: ${action.durationSeconds}s - ${action.label}")
-                // Trigger timer start event
-            }
-            is VoiceAction.StopTimer -> {
-                Log.d(tag, "Stop timer")
-                // Trigger timer stop event
-            }
             is VoiceAction.CallEmergency -> {
                 Log.d(tag, "Call emergency: ${action.number}")
                 // Trigger emergency call
-            }
-            is VoiceAction.FindHospital -> {
-                Log.d(tag, "Find hospital")
-                // Trigger hospital finder
-            }
-            is VoiceAction.ShowSteps -> {
-                Log.d(tag, "Show steps: ${action.steps.size} steps")
-                // Display procedure steps
-            }
-            is VoiceAction.ShowGuide -> {
-                Log.d(tag, "Show guide: ${action.guideId}")
-                // Display specific guide
             }
         }
     }
@@ -414,55 +394,7 @@ class VoiceAssistantManager(private val context: Context) {
     }
 
     /**
-     * Start Gemini Live voice conversation for real-time emergency assistance
-     */
-    suspend fun startLiveVoiceSession(): Result<String> {
-        return try {
-            _assistantState.value = VoiceAssistantState.Processing
-
-            val result = geminiAI.startVoiceConversation()
-
-            result.onSuccess { message ->
-                _assistantState.value = VoiceAssistantState.Speaking
-                Log.d(tag, "Live voice session started: $message")
-
-                // Speak welcome message for live session
-                textToSpeech.speak("Live emergency assistant activated. Describe your emergency situation clearly.")
-            }
-
-            result.onFailure { error ->
-                _assistantState.value = VoiceAssistantState.Error(error.message ?: "Failed to start live session")
-                Log.e(tag, "Failed to start live session", error)
-            }
-
-            result
-        } catch (e: Exception) {
-            Log.e(tag, "Error starting live voice session", e)
-            Result.failure(e)
-        }
-    }
-
-    /**
-     * Stop Gemini Live voice conversation
-     */
-    suspend fun stopLiveVoiceSession(): Result<String> {
-        return try {
-            val result = geminiAI.stopVoiceConversation()
-
-            result.onSuccess { message ->
-                _assistantState.value = VoiceAssistantState.Idle
-                Log.d(tag, "Live voice session stopped: $message")
-            }
-
-            result
-        } catch (e: Exception) {
-            Log.e(tag, "Error stopping live voice session", e)
-            Result.failure(e)
-        }
-    }
-
-    /**
-     * Handle emergency call triggered by Gemini Live API
+     * Handle emergency call triggered by Gemini AI
      */
     private suspend fun handleEmergencyCall(emergencyType: String, urgency: String) {
         try {
@@ -505,10 +437,6 @@ class VoiceAssistantManager(private val context: Context) {
         }
     }
 
-    /**
-     * Check if assistant is ready
-     */
-    fun isReady(): Boolean = isInitialized
 
     /**
      * Get permission manager

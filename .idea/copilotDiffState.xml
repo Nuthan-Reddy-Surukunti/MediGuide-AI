@@ -20,30 +20,6 @@
             </PendingDiffInfo>
           </value>
         </entry>
-        <entry key="$PROJECT_DIR$/archive/removed/LearningDialogManager.original.kt">
-          <value>
-            <PendingDiffInfo>
-              <option name="filePath" value="$PROJECT_DIR$/archive/removed/LearningDialogManager.original.kt" />
-              <option name="updatedContent" value="package com.example.firstaidapp.utils&#10;&#10;// (Legacy) Manager that orchestrated learning dialogs (archived)&#10;&#10;import android.content.Context&#10;&#10;/**&#10; * Thin compatibility wrapper that delegates to the unified DialogHelper and LearningNotificationManager.&#10; * This preserves old call sites while avoiding duplicate implementation.&#10; */&#10;class LearningDialogManager(private val context: Context) {&#10;&#10;    fun showWelcomeDialog(onComplete: () -&gt; Unit) {&#10;        com.example.firstaidapp.utils.DialogHelper.showWelcomeDialog(context, onComplete)&#10;    }&#10;&#10;    fun showDailyReminderDialog(onStartLearning: () -&gt; Unit = {}) {&#10;        com.example.firstaidapp.utils.DialogHelper.showDailyReminderDialog(context, onStartLearning)&#10;    }&#10;&#10;    fun showCompletionDialog() {&#10;        com.example.firstaidapp.utils.DialogHelper.showSimpleAlert(&#10;            context,&#10;            &quot; Congratulations!&quot;,&#10;            &quot;You've explored all first aid guides!\n\nYou're now better prepared to handle emergencies.&quot;)&#10;    }&#10;&#10;    fun showReminderSettingsDialog() {&#10;        val prefsManager = com.example.firstaidapp.utils.UserPreferencesManager(context)&#10;        val currentlyEnabled = prefsManager.learningRemindersEnabled&#10;        val currentFrequency = prefsManager.notificationFrequency&#10;        val frequencyText = when (currentFrequency) {&#10;            &quot;daily&quot; -&gt; &quot;Daily&quot;&#10;            &quot;every_2_days&quot; -&gt; &quot;Every 2 Days&quot;&#10;            &quot;weekly&quot; -&gt; &quot;Weekly&quot;&#10;            else -&gt; &quot;Daily&quot;&#10;        }&#10;&#10;        val message = &quot;Current Status: ${if (currentlyEnabled) &quot;Enabled&quot; else &quot;Disabled&quot;}\n&quot; +&#10;                &quot;Frequency: $frequencyText\n&quot; +&#10;                &quot;Time: ${prefsManager.notificationTimeHour}:00\n\n&quot; +&#10;                &quot;What would you like to do?&quot;&#10;&#10;        com.example.firstaidapp.utils.DialogHelper.showSimpleAlert(context, &quot;Learning Reminder Settings&quot;, message)&#10;    }&#10;}&#10;" />
-            </PendingDiffInfo>
-          </value>
-        </entry>
-        <entry key="$PROJECT_DIR$/archive/removed/NotificationHelper.original.kt">
-          <value>
-            <PendingDiffInfo>
-              <option name="filePath" value="$PROJECT_DIR$/archive/removed/NotificationHelper.original.kt" />
-              <option name="updatedContent" value="package com.example.firstaidapp.utils&#10;&#10;import android.content.Context&#10;&#10;/**&#10; * Archived NotificationHelper&#10; */&#10;object NotificationHelperArchived {&#10;    private fun getManager(context: Context) = com.example.firstaidapp.utils.LearningNotificationManager(context)&#10;&#10;    fun shouldShowDailyReminder(context: Context): Boolean {&#10;        return getManager(context).shouldShowDailyReminder()&#10;    }&#10;&#10;    fun scheduleDailyNotifications(context: Context) {&#10;        getManager(context).scheduleDailyNotifications()&#10;    }&#10;}&#10;" />
-            </PendingDiffInfo>
-          </value>
-        </entry>
-        <entry key="$PROJECT_DIR$/archive/removed/UnifiedImageMapper.original.kt">
-          <value>
-            <PendingDiffInfo>
-              <option name="filePath" value="$PROJECT_DIR$/archive/removed/UnifiedImageMapper.original.kt" />
-              <option name="updatedContent" value="package com.example.firstaidapp.utils&#10;&#10;// Archived placeholder for UnifiedImageMapper&#10;&#10;// Helper to map various image sources (resource name, URL) to a unified representation&#10;// (Placeholder: actual mapping logic may be implemented elsewhere)&#10;" />
-            </PendingDiffInfo>
-          </value>
-        </entry>
       </map>
     </option>
   </component>

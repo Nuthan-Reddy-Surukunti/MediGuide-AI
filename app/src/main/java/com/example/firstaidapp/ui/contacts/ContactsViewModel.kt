@@ -7,19 +7,16 @@ import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.asLiveData
 import androidx.lifecycle.switchMap
 import androidx.lifecycle.viewModelScope
-import com.example.firstaidapp.data.database.AppDatabase
 import com.example.firstaidapp.data.models.ContactType
 import com.example.firstaidapp.data.models.EmergencyContact
 import com.example.firstaidapp.data.repository.EmergencyContactsData
+import com.example.firstaidapp.managers.ContactManager
 import com.example.firstaidapp.utils.UserPreferencesManager
-import kotlinx.coroutines.flow.MutableStateFlow
-import kotlinx.coroutines.flow.combine
 import kotlinx.coroutines.launch
 
 class ContactsViewModel(application: Application) : AndroidViewModel(application) {
 
-    private val database = AppDatabase.getDatabase(application)
-    private val contactDao = database.contactDao()
+    private val contactManager = ContactManager(application)
     private val prefsManager = UserPreferencesManager(application)
 
     // Current selected state for filtering - load from SharedPreferences
@@ -46,9 +43,9 @@ class ContactsViewModel(application: Application) : AndroidViewModel(application
     val allContacts: LiveData<List<EmergencyContact>> =
         selectedState.switchMap { state ->
             if (state == "National") {
-                contactDao.getAllContacts()
+                contactManager.getAllContacts()
             } else {
-                contactDao.getContactsByStateWithNational(state)
+                contactManager.getContactsByStateWithNational(state)
             }.asLiveData()
         }
 
@@ -59,7 +56,7 @@ class ContactsViewModel(application: Application) : AndroidViewModel(application
                 // Return empty list when query is blank, as allContacts is used for non-search
                 MutableLiveData(emptyList())
             } else {
-                contactDao.searchContacts(query).asLiveData()
+                contactManager.searchContacts(query).asLiveData()
             }
         }
 
@@ -97,7 +94,7 @@ class ContactsViewModel(application: Application) : AndroidViewModel(application
         viewModelScope.launch {
             try {
                 _isLoading.value = true
-                contactDao.insertContact(contact)
+                contactManager.insertContact(contact)
                 _errorMessage.value = null
             } catch (e: Exception) {
                 _errorMessage.value = "Failed to add contact: ${e.message}"
@@ -111,7 +108,7 @@ class ContactsViewModel(application: Application) : AndroidViewModel(application
         viewModelScope.launch {
             try {
                 _isLoading.value = true
-                contactDao.updateContact(contact)
+                contactManager.updateContact(contact)
                 _errorMessage.value = null
             } catch (e: Exception) {
                 _errorMessage.value = "Failed to update contact: ${e.message}"
@@ -125,13 +122,7 @@ class ContactsViewModel(application: Application) : AndroidViewModel(application
         viewModelScope.launch {
             try {
                 _isLoading.value = true
-                if (contact.isDefault) {
-                    // Soft delete for default contacts
-                    contactDao.softDeleteContact(contact.id)
-                } else {
-                    // Hard delete for user-added contacts
-                    contactDao.deleteContact(contact)
-                }
+                contactManager.deleteContact(contact)
                 _errorMessage.value = null
             } catch (e: Exception) {
                 _errorMessage.value = "Failed to delete contact: ${e.message}"
@@ -142,7 +133,7 @@ class ContactsViewModel(application: Application) : AndroidViewModel(application
     }
 
     fun getContactsByType(type: ContactType): LiveData<List<EmergencyContact>> {
-        return contactDao.getContactsByType(type).asLiveData()
+        return contactManager.getContactsByType(type).asLiveData()
     }
 
     fun refreshContacts() {
@@ -162,13 +153,13 @@ class ContactsViewModel(application: Application) : AndroidViewModel(application
     private fun loadAvailableStates() {
         viewModelScope.launch {
             try {
-                val states = contactDao.getAvailableStates().toMutableList()
+                val states = contactManager.getAvailableStates().toMutableList()
                 // Ensure "National" is always first in the list
                 states.remove("National")
                 states.add(0, "National")
                 _availableStates.value = states
             } catch (e: Exception) {
-                // Fallback to predefined states if database query fails
+                // Fallback to predefined states if manager query fails
                 val fallbackStates = mutableListOf("National")
                 fallbackStates.addAll(EmergencyContactsData.getStatesList())
                 _availableStates.value = fallbackStates

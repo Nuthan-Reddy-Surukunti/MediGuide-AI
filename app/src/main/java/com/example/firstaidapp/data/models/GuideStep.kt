@@ -2,13 +2,9 @@ package com.example.firstaidapp.data.models
 
 // Model representing a single step within a first aid guide
 
-import androidx.room.Entity
-import androidx.room.PrimaryKey
 import com.example.firstaidapp.data.models.StepType
 
-@Entity(tableName = "guide_steps")
 data class GuideStep(
-    @PrimaryKey
     val id: String,
     val guideId: String,
     val stepNumber: Int,

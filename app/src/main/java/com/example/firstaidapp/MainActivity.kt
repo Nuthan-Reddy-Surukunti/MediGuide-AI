@@ -56,6 +56,7 @@ class MainActivity : AppCompatActivity() {
                 showLearningDialogs()
             }
 
+
             // Request required permissions for AI voice assistant
             requestRequiredPermissions()
 
@@ -149,6 +150,7 @@ class MainActivity : AppCompatActivity() {
             e.printStackTrace()
         }
     }
+
 
     /**
      * Request all required permissions for AI voice assistant functionality

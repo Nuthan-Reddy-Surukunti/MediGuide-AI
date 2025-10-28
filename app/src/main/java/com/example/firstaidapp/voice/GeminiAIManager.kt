@@ -22,9 +22,8 @@ class GeminiAIManager(private val context: Context) {
 
     private val tag = "GeminiLiveAIManager"
 
-    // Live API session management
+    // Model readiness tracking
     private var isAIModelReady: Boolean = false
-    private val isLiveSessionActive = AtomicBoolean(false)
     val isModelInitialized = AtomicBoolean(false)
 
     // Google AI Client model instance
@@ -148,38 +147,6 @@ class GeminiAIManager(private val context: Context) {
         }
     }
 
-    /**
-     * Start real-time voice conversation with emergency assistance
-     */
-    suspend fun startVoiceConversation(): Result<String> = withContext(Dispatchers.IO) {
-        try {
-            if (!isModelInitialized.get()) {
-                return@withContext Result.failure(Exception("Model not initialized"))
-            }
-
-            isLiveSessionActive.set(true)
-            Log.d(tag, "Live voice conversation started - ready for emergency guidance")
-
-            Result.success("Voice conversation active - speak your emergency situation")
-        } catch (e: Exception) {
-            Log.e(tag, "Failed to start voice conversation", e)
-            Result.failure(e)
-        }
-    }
-
-    /**
-     * Stop the active voice conversation
-     */
-    suspend fun stopVoiceConversation(): Result<String> = withContext(Dispatchers.IO) {
-        try {
-            isLiveSessionActive.set(false)
-            Log.d(tag, "Voice conversation stopped")
-            Result.success("Voice conversation stopped")
-        } catch (e: Exception) {
-            Log.e(tag, "Failed to stop voice conversation", e)
-            Result.failure(e)
-        }
-    }
 
     /**
      * Process emergency voice input with Gemini AI
@@ -304,13 +271,6 @@ class GeminiAIManager(private val context: Context) {
     }
 
     /**
-     * Check if the Live API session is currently active
-     */
-    fun isVoiceSessionActive(): Boolean {
-        return isLiveSessionActive.get()
-    }
-
-    /**
      * Check if the AI model is available
      */
     fun isServiceAvailable(): Boolean {
@@ -324,28 +284,6 @@ class GeminiAIManager(private val context: Context) {
         return processEmergencyVoiceInput(text)
     }
 
-    /**
-     * Process audio data (legacy compatibility method)
-     */
-    suspend fun processVoiceCommandWithAudio(audioData: ByteArray): Result<VoiceResponse> = withContext(Dispatchers.IO) {
-        try {
-            Log.d(tag, "Processing audio input via Live API")
-
-            // In a real implementation, this would use speech-to-text
-            // For now, return a response indicating audio was received
-            Result.success(VoiceResponse(
-                text = "I received your audio. Please describe your emergency situation clearly.",
-                metadata = mapOf(
-                    "source" to "live_api_audio",
-                    "processing" to "true",
-                    "timestamp" to System.currentTimeMillis().toString()
-                )
-            ))
-        } catch (e: Exception) {
-            Log.e(tag, "Error processing audio input", e)
-            processFallbackCommand("voice input received")
-        }
-    }
 
     /**
      * Fallback command processing when AI is unavailable
@@ -431,7 +369,6 @@ class GeminiAIManager(private val context: Context) {
      */
     fun cleanup() {
         try {
-            isLiveSessionActive.set(false)
             isModelInitialized.set(false)
             generativeModel = null
             Log.d(tag, "GeminiAIManager cleaned up")

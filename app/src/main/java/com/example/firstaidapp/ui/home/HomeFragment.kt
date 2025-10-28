@@ -13,11 +13,10 @@ import androidx.activity.result.contract.ActivityResultContracts
 import androidx.core.content.ContextCompat
 import androidx.core.net.toUri
 import androidx.fragment.app.Fragment
+import androidx.fragment.app.activityViewModels
 import androidx.lifecycle.lifecycleScope
 import androidx.navigation.fragment.findNavController
 import com.example.firstaidapp.R
-import com.example.firstaidapp.data.database.AppDatabase
-import com.example.firstaidapp.data.repository.GuideRepository
 import com.example.firstaidapp.databinding.FragmentHomeBinding
 import kotlinx.coroutines.launch
 
@@ -27,8 +26,6 @@ class HomeFragment : Fragment() {
     private var _binding: FragmentHomeBinding? = null
     private val binding get() = _binding!!
 
-    // Repository used to query guides and other data
-    private lateinit var repository: GuideRepository
 
     // Static list of emergency tips shown in the UI
     private val emergencyTips = listOf(
@@ -64,17 +61,10 @@ class HomeFragment : Fragment() {
         return binding.root
     }
 
-    // Initialize repository and set up UI when view is created
+    // Set up UI when view is created
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
-        // Initialize repository from the AppDatabase
-        val database = AppDatabase.getDatabase(requireContext())
-        repository = GuideRepository(
-            database.guideDao(),
-            database.contactDao(),
-            database.searchDao()
-        )
 
         // Wire up click listeners and initial UI state
         setupClickListeners()
@@ -147,17 +137,21 @@ class HomeFragment : Fragment() {
         binding.tvEmergencyTip.text = randomTip
     }
 
-    // Search repository for a guide by title and navigate to its detail
+    // Search for a guide by title and navigate to its detail
     private fun navigateToGuide(guideTitle: String) {
         lifecycleScope.launch {
             try {
-                // Query the repository for matching guides
-                val guides = repository.searchGuidesList(guideTitle)
+                // Get ViewModel (must be created on main thread)
+                val viewModel: HomeViewModel by activityViewModels()
 
-                if (guides.isNotEmpty()) {
-                    // Prefer an exact match, otherwise take the first result
-                    val guide = guides.firstOrNull { it.title.contains(guideTitle, ignoreCase = true) }
-                        ?: guides.first()
+                // Search for the guide (fast operation, no background thread needed)
+                val searchResults = viewModel.searchGuidesByTitle(guideTitle)
+
+                if (searchResults.isNotEmpty()) {
+                    // Prefer exact match, otherwise take first result
+                    val guide = searchResults.firstOrNull {
+                        it.title.equals(guideTitle, ignoreCase = true)
+                    } ?: searchResults.first()
 
                     // Navigate to GuideDetailFragment with the guide ID
                     val action = HomeFragmentDirections.actionHomeToGuideDetail(guide.id)

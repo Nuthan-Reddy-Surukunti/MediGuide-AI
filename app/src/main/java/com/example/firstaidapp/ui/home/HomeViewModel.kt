@@ -3,25 +3,21 @@ package com.example.firstaidapp.ui.home
 // ViewModel for home screen: provides guides and categorization
 
 import android.app.Application
-import android.content.Context
-import android.content.Intent
-import android.net.Uri
 import android.util.Log
-import androidx.core.net.toUri
 import androidx.lifecycle.AndroidViewModel
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.viewModelScope
-import com.example.firstaidapp.data.database.AppDatabase
 import com.example.firstaidapp.data.models.FirstAidGuide
-import com.example.firstaidapp.data.repository.GuideRepository
-import com.example.firstaidapp.utils.DataInitializer
+import com.example.firstaidapp.managers.JsonGuideManager
+import com.example.firstaidapp.managers.PreferencesManager
 import kotlinx.coroutines.launch
 
 class HomeViewModel(application: Application) : AndroidViewModel(application) {
 
-    // Repository used to load guides from the DB
-    private lateinit var repository: GuideRepository
+    // Manager used to load guides from JSON/Kotlin data
+    private val guideManager = JsonGuideManager(application)
+    private val preferencesManager = PreferencesManager(application)
 
     // LiveData exposing a flattened list of category headers and guide items
     private val _categorizedItems = MutableLiveData<List<CategoryItem>>()
@@ -30,34 +26,27 @@ class HomeViewModel(application: Application) : AndroidViewModel(application) {
     // Tracks which categories are expanded in the UI
     private val expandedCategories = mutableSetOf<String>()
 
-    // Cached list of guides loaded from the repository
+    // Cached list of guides loaded from the manager
     private val _guides = MutableLiveData<List<FirstAidGuide>>()
+
+    // LiveData for all guides (for external observers)
+    private val _guidesLiveData = MutableLiveData<List<FirstAidGuide>>()
+    val guidesLiveData: LiveData<List<FirstAidGuide>> = _guidesLiveData
 
     // LiveData for search results when the user searches guides
     private val _searchResults = MutableLiveData<List<FirstAidGuide>>()
     val searchResults: LiveData<List<FirstAidGuide>> = _searchResults
 
-    // Initialize repository and start data initialization/observation
+    // Initialize manager and start data observation
     init {
-        viewModelScope.launch {
-            val database = AppDatabase.getDatabase(application)
-            repository = GuideRepository(
-                database.guideDao(),
-                database.contactDao(),
-                database.searchDao()
-            )
+        // Load all guides directly from the manager
+        val guides = guideManager.getAllGuidesList()
+        Log.d("HomeViewModel", "Total guides available: ${guides.size}")
+        _guides.value = guides
+        updateCategorizedItems(guides)
 
-            // Ensure static data is initialized on first run
-            Log.d("HomeViewModel", "Starting data initialization")
-            DataInitializer.initializeData(getApplication())
-
-            // Observe all guides and update categorized items when data changes
-            repository.allGuides.observeForever { guides ->
-                Log.d("HomeViewModel", "Total guides available: ${guides.size}")
-                _guides.value = guides
-                updateCategorizedItems(guides)
-            }
-        }
+        // Also update LiveData for observers
+        _guidesLiveData.value = guides
     }
 
     // Build the list of CategoryItem (headers + optional guide items) for the UI
@@ -97,15 +86,22 @@ class HomeViewModel(application: Application) : AndroidViewModel(application) {
         _guides.value?.let { updateCategorizedItems(it) }
     }
 
-    // Perform a repository search for guides matching the query
+    // Perform a search for guides matching the query
     fun searchGuides(query: String) {
         viewModelScope.launch {
             _searchResults.value = if (query.isNotEmpty()) {
-                repository.searchGuidesList(query)
+                guideManager.searchGuidesList(query).also {
+                    preferencesManager.addSearchQuery(query)
+                }
             } else {
                 emptyList()
             }
         }
+    }
+
+    // Search guides by title (for navigation from quick action cards)
+    fun searchGuidesByTitle(title: String): List<FirstAidGuide> {
+        return guideManager.searchGuidesList(title)
     }
 
     // Clear any active search results

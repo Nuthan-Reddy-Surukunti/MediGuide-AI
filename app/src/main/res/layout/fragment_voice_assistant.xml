@@ -1,17 +1,16 @@
 <?xml version="1.0" encoding="utf-8"?>
-<androidx.coordinatorlayout.widget.CoordinatorLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
-    xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:orientation="vertical"
     android:background="@android:color/white">
 
-    <!-- Normal Mode Layout -->
-    <androidx.core.widget.NestedScrollView
+    <!-- Normal Mode (Scrollable) -->
+    <ScrollView
         android:id="@+id/normalModeLayout"
         android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:fillViewport="true">
+        android:layout_height="match_parent">
 
         <LinearLayout
             android:layout_width="match_parent"
@@ -19,7 +18,7 @@
             android:orientation="vertical"
             android:padding="16dp">
 
-            <!-- Header -->
+            <!-- Title -->
             <TextView
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
@@ -28,15 +27,14 @@
                 android:textStyle="bold"
                 android:textColor="@android:color/black"
                 android:gravity="center"
-                android:layout_marginBottom="8dp"/>
+                android:layout_marginBottom="16dp"/>
 
-            <!-- AI Status Indicator -->
+            <!-- AI Status Badge -->
             <LinearLayout
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_gravity="center"
                 android:orientation="horizontal"
-                android:gravity="center_vertical"
                 android:background="@android:drawable/dialog_holo_light_frame"
                 android:padding="8dp"
                 android:layout_marginBottom="16dp">
@@ -55,73 +53,63 @@
                     android:layout_height="wrap_content"
                     android:text="AI: Offline Mode"
                     android:textSize="14sp"
-                    android:textColor="@android:color/darker_gray"
                     android:textStyle="bold"/>
 
             </LinearLayout>
 
+            <!-- Status Message -->
             <TextView
                 android:id="@+id/statusText"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:text="Tap microphone to start"
                 android:textSize="16sp"
-                android:textColor="@android:color/darker_gray"
                 android:gravity="center"
                 android:layout_marginBottom="24dp"/>
 
-            <!-- Microphone Button with Animations -->
+            <!-- Microphone with Animations -->
             <FrameLayout
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
+                android:layout_width="120dp"
+                android:layout_height="120dp"
                 android:layout_gravity="center"
                 android:layout_marginBottom="24dp">
 
-                <!-- Listening Animation - Simple ProgressBar -->
                 <ProgressBar
                     android:id="@+id/listeningAnimation"
-                    android:layout_width="120dp"
-                    android:layout_height="120dp"
-                    android:layout_gravity="center"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
                     android:visibility="gone"
                     android:indeterminateTint="@color/primary"/>
 
-                <!-- Processing Animation - Simple ProgressBar -->
                 <ProgressBar
                     android:id="@+id/processingAnimation"
                     style="?android:attr/progressBarStyleHorizontal"
-                    android:layout_width="120dp"
-                    android:layout_height="120dp"
-                    android:layout_gravity="center"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
                     android:visibility="gone"
                     android:indeterminate="true"
                     android:indeterminateTint="@color/accent"/>
 
-                <!-- Speaking Animation - Simple ImageView with icon -->
                 <ImageView
                     android:id="@+id/speakingAnimation"
-                    android:layout_width="120dp"
-                    android:layout_height="120dp"
-                    android:layout_gravity="center"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
                     android:visibility="gone"
                     android:src="@android:drawable/ic_lock_silent_mode_off"
-                    android:tint="@color/primary"
-                    android:padding="24dp"/>
+                    android:padding="24dp"
+                    app:tint="@color/primary" />
 
-                <!-- Microphone Button -->
                 <com.google.android.material.floatingactionbutton.FloatingActionButton
                     android:id="@+id/microphoneButton"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_gravity="center"
                     android:src="@android:drawable/ic_btn_speak_now"
-                    app:fabSize="normal"
-                    app:tint="@android:color/white"
-                    android:contentDescription="Voice command button"/>
+                    app:tint="@android:color/white"/>
 
             </FrameLayout>
 
-            <!-- Urgency Indicator -->
+            <!-- Urgency Bar -->
             <View
                 android:id="@+id/urgencyIndicator"
                 android:layout_width="match_parent"
@@ -129,28 +117,27 @@
                 android:background="@android:color/holo_green_dark"
                 android:layout_marginBottom="16dp"/>
 
-            <!-- Recognized Text Card -->
+            <!-- User Input -->
             <com.google.android.material.card.MaterialCardView
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_marginBottom="16dp"
-                app:cardElevation="4dp"
+                android:layout_marginBottom="12dp"
+                app:cardElevation="2dp"
                 app:cardCornerRadius="8dp">
 
                 <LinearLayout
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:orientation="vertical"
-                    android:padding="16dp">
+                    android:padding="12dp">
 
                     <TextView
-                        android:layout_width="match_parent"
+                        android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:text="You said:"
-                        android:textSize="14sp"
+                        android:textSize="12sp"
                         android:textStyle="bold"
-                        android:textColor="@android:color/darker_gray"
-                        android:layout_marginBottom="8dp"/>
+                        android:layout_marginBottom="4dp"/>
 
                     <TextView
                         android:id="@+id/tvRecognizedText"
@@ -158,19 +145,18 @@
                         android:layout_height="wrap_content"
                         android:text="Waiting for input..."
                         android:textSize="16sp"
-                        android:textColor="@android:color/black"
                         android:minHeight="40dp"/>
 
                 </LinearLayout>
 
             </com.google.android.material.card.MaterialCardView>
 
-            <!-- Response Card -->
+            <!-- AI Response -->
             <com.google.android.material.card.MaterialCardView
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_marginBottom="16dp"
-                app:cardElevation="4dp"
+                app:cardElevation="2dp"
                 app:cardCornerRadius="8dp"
                 app:cardBackgroundColor="@android:color/holo_blue_light">
 
@@ -178,16 +164,16 @@
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:orientation="vertical"
-                    android:padding="16dp">
+                    android:padding="12dp">
 
                     <TextView
-                        android:layout_width="match_parent"
+                        android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:text="Assistant:"
-                        android:textSize="14sp"
+                        android:textSize="12sp"
                         android:textStyle="bold"
                         android:textColor="@android:color/white"
-                        android:layout_marginBottom="8dp"/>
+                        android:layout_marginBottom="4dp"/>
 
                     <TextView
                         android:id="@+id/tvResponse"
@@ -202,23 +188,20 @@
 
             </com.google.android.material.card.MaterialCardView>
 
-            <!-- Emergency Quick Actions -->
+            <!-- Emergency Actions Title -->
             <TextView
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:text="Emergency Quick Actions"
                 android:textSize="18sp"
                 android:textStyle="bold"
-                android:textColor="@android:color/black"
-                android:layout_marginTop="8dp"
                 android:layout_marginBottom="12dp"/>
 
+            <!-- Emergency Buttons (2x2 Grid) -->
             <GridLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:columnCount="2"
-                android:rowCount="2"
-                android:alignmentMode="alignBounds"
                 android:layout_marginBottom="16dp">
 
                 <com.google.android.material.button.MaterialButton
@@ -228,10 +211,8 @@
                     android:layout_columnWeight="1"
                     android:layout_margin="4dp"
                     android:text="CPR"
-                    android:textColor="@android:color/white"
                     app:backgroundTint="@android:color/holo_red_dark"
-                    app:icon="@android:drawable/ic_menu_help"
-                    app:iconTint="@android:color/white"/>
+                    app:icon="@android:drawable/ic_menu_help"/>
 
                 <com.google.android.material.button.MaterialButton
                     android:id="@+id/btnEmergencyChoking"
@@ -240,10 +221,8 @@
                     android:layout_columnWeight="1"
                     android:layout_margin="4dp"
                     android:text="Choking"
-                    android:textColor="@android:color/white"
                     app:backgroundTint="@android:color/holo_orange_dark"
-                    app:icon="@android:drawable/ic_menu_help"
-                    app:iconTint="@android:color/white"/>
+                    app:icon="@android:drawable/ic_menu_help"/>
 
                 <com.google.android.material.button.MaterialButton
                     android:id="@+id/btnEmergencyBleeding"
@@ -252,10 +231,8 @@
                     android:layout_columnWeight="1"
                     android:layout_margin="4dp"
                     android:text="Bleeding"
-                    android:textColor="@android:color/white"
                     app:backgroundTint="@android:color/holo_red_light"
-                    app:icon="@android:drawable/ic_menu_help"
-                    app:iconTint="@android:color/white"/>
+                    app:icon="@android:drawable/ic_menu_help"/>
 
                 <com.google.android.material.button.MaterialButton
                     android:id="@+id/btnEmergencyBurns"
@@ -264,10 +241,8 @@
                     android:layout_columnWeight="1"
                     android:layout_margin="4dp"
                     android:text="Burns"
-                    android:textColor="@android:color/white"
                     app:backgroundTint="@android:color/holo_orange_light"
-                    app:icon="@android:drawable/ic_menu_help"
-                    app:iconTint="@android:color/white"/>
+                    app:icon="@android:drawable/ic_menu_help"/>
 
             </GridLayout>
 
@@ -275,8 +250,7 @@
             <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:orientation="horizontal"
-                android:gravity="center">
+                android:orientation="horizontal">
 
                 <com.google.android.material.button.MaterialButton
                     android:id="@+id/btnStop"
@@ -300,37 +274,36 @@
 
         </LinearLayout>
 
-    </androidx.core.widget.NestedScrollView>
+    </ScrollView>
 
-    <!-- Emergency Mode Overlay -->
+    <!-- Emergency Overlay (Hidden by default) -->
     <FrameLayout
         android:id="@+id/emergencyOverlay"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:background="@android:color/holo_red_dark"
-        android:visibility="gone">
+        android:visibility="gone"
+        android:padding="24dp">
 
         <LinearLayout
             android:layout_width="match_parent"
-            android:layout_height="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center"
             android:orientation="vertical"
-            android:padding="24dp"
             android:gravity="center">
 
             <TextView
-                android:layout_width="match_parent"
+                android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:text="⚠️ EMERGENCY MODE ⚠️"
                 android:textSize="32sp"
                 android:textStyle="bold"
                 android:textColor="@android:color/white"
-                android:gravity="center"
                 android:layout_marginBottom="32dp"/>
 
             <ProgressBar
                 android:layout_width="200dp"
                 android:layout_height="200dp"
-                android:layout_gravity="center"
                 android:layout_marginBottom="24dp"
                 android:indeterminateTint="@android:color/white"/>
 
@@ -352,12 +325,11 @@
                 android:text="Exit Emergency Mode"
                 android:textSize="18sp"
                 android:textColor="@android:color/holo_red_dark"
-                app:backgroundTint="@android:color/white"
-                android:padding="16dp"/>
+                app:backgroundTint="@android:color/white"/>
 
         </LinearLayout>
 
     </FrameLayout>
 
-</androidx.coordinatorlayout.widget.CoordinatorLayout>
+</LinearLayout>
 

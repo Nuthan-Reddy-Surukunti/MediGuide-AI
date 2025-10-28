@@ -1,13 +1,8 @@
 package com.example.firstaidapp.data.models
 
-// Model representing a first aid guide and its metadata stored in DB
+// Model representing a first aid guide and its metadata
 
-import androidx.room.Entity
-import androidx.room.PrimaryKey
-
-@Entity(tableName = "first_aid_guides")
 data class FirstAidGuide(
-    @PrimaryKey
     val id: String,
     val title: String,
     val category: String,
