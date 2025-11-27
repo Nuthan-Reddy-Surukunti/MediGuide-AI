@@ -1,0 +1,116 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:orientation="horizontal"
+    android:padding="@dimen/emergency_padding_small"
+    android:gravity="center_vertical"
+    android:background="@drawable/emergency_step_background">
+
+    <!-- Step Number Circle -->
+    <FrameLayout
+        android:layout_width="@dimen/emergency_step_circle_size"
+        android:layout_height="@dimen/emergency_step_circle_size"
+        android:layout_marginEnd="@dimen/emergency_margin_medium">
+
+        <View
+            android:id="@+id/stepCircleBackground"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:background="@drawable/emergency_step_circle"
+            android:backgroundTint="@color/emergency_step_pending" />
+
+        <TextView
+            android:id="@+id/tvStepNumber"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center"
+            android:text="1"
+            android:textSize="@dimen/emergency_step_number_size"
+            android:textStyle="bold"
+            android:textColor="@color/emergency_on_surface" />
+
+        <!-- Checkmark for completed steps -->
+        <ImageView
+            android:id="@+id/ivStepComplete"
+            android:layout_width="32dp"
+            android:layout_height="32dp"
+            android:layout_gravity="center"
+            android:src="@drawable/ic_check_circle"
+            android:visibility="gone"
+            app:tint="@color/emergency_on_surface" />
+
+    </FrameLayout>
+
+    <!-- Step Content -->
+    <LinearLayout
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_weight="1"
+        android:orientation="vertical">
+
+        <!-- Step Title -->
+        <TextView
+            android:id="@+id/tvStepTitle"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="Step Title"
+            android:textSize="@dimen/emergency_instruction_size"
+            android:textStyle="bold"
+            android:textColor="@color/emergency_on_surface"
+            android:layout_marginBottom="4dp" />
+
+        <!-- Step Description -->
+        <TextView
+            android:id="@+id/tvStepDescription"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="Detailed step description goes here"
+            android:textSize="16sp"
+            android:textColor="@color/emergency_on_surface"
+            android:alpha="0.8" />
+
+        <!-- Timer for timed steps -->
+        <LinearLayout
+            android:id="@+id/timerLayout"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal"
+            android:layout_marginTop="8dp"
+            android:visibility="gone"
+            android:gravity="center_vertical">
+
+            <ImageView
+                android:layout_width="16dp"
+                android:layout_height="16dp"
+                android:src="@drawable/ic_timer"
+                android:layout_marginEnd="8dp"
+                app:tint="@color/emergency_timer_warning" />
+
+            <TextView
+                android:id="@+id/tvTimer"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="00:30"
+                android:textSize="16sp"
+                android:textStyle="bold"
+                android:textColor="@color/emergency_timer_warning" />
+
+        </LinearLayout>
+
+    </LinearLayout>
+
+    <!-- Action Button -->
+    <com.google.android.material.button.MaterialButton
+        android:id="@+id/btnStepAction"
+        android:layout_width="wrap_content"
+        android:layout_height="@dimen/emergency_touch_target"
+        android:text="Done"
+        android:textSize="16sp"
+        android:layout_marginStart="@dimen/emergency_margin_small"
+        app:backgroundTint="@color/emergency_step_complete"
+        app:icon="@drawable/ic_check_circle"
+        android:visibility="gone" />
+
+</LinearLayout>

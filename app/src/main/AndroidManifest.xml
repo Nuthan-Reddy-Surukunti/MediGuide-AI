@@ -28,9 +28,9 @@
     <!-- <uses-permission android:name="android.permission.BLUETOOTH_ADMIN" /> -->
 
     <!-- System Permissions -->
-    <!-- Wake-lock, vibrate and foreground service microphone are not used directly in code -->
+    <uses-permission android:name="android.permission.VIBRATE" />
+    <!-- Wake-lock and foreground service microphone are not used directly in code -->
     <!-- <uses-permission android:name="android.permission.WAKE_LOCK" /> -->
-    <!-- <uses-permission android:name="android.permission.VIBRATE" /> -->
     <!-- <uses-permission android:name="android.permission.FOREGROUND_SERVICE" /> -->
     <!-- <uses-permission android:name="android.permission.FOREGROUND_SERVICE_MICROPHONE" /> -->
 
@@ -44,6 +44,19 @@
     <uses-permission android:name="android.permission.POST_NOTIFICATIONS" />
     <!-- SCHEDULE_EXACT_ALARM not required for current AlarmManager.setRepeating usage -->
     <!-- <uses-permission android:name="android.permission.SCHEDULE_EXACT_ALARM" /> -->
+
+    <!-- Package visibility queries for Android 11+ (API 30+) -->
+    <queries>
+        <!-- Query for phone call and dial intents -->
+        <intent>
+            <action android:name="android.intent.action.DIAL" />
+            <data android:scheme="tel" />
+        </intent>
+        <intent>
+            <action android:name="android.intent.action.CALL" />
+            <data android:scheme="tel" />
+        </intent>
+    </queries>
 
     <application
         android:name=".FirstAidApplication"

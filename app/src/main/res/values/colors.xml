@@ -1,33 +1,35 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-    <!-- Primary Colors - Modern Medical Theme -->
-    <color name="primary">#E53E3E</color>
-    <color name="primary_light">#FFCDD2</color>
-    <color name="primary_dark">#C53030</color>
-    <color name="accent">#3182CE</color>
+    <!-- Primary Colors - Calm Professional Health Blue -->
+    <color name="primary">#2563EB</color>
+    <color name="primary_light">#DBEAFE</color>
+    <color name="primary_dark">#1E40AF</color>
+    <color name="accent">#10B981</color>
+    <color name="accent_light">#D1FAE5</color>
 
     <!-- Secondary Colors -->
-    <color name="secondary">#FF6B6B</color>
-    <color name="secondary_light">#FFB3B3</color>
-    <color name="secondary_dark">#CC5555</color>
+    <color name="secondary">#8B5CF6</color>
+    <color name="secondary_light">#EDE9FE</color>
+    <color name="secondary_dark">#6D28D9</color>
 
-    <!-- Emergency Colors -->
-    <color name="emergency_red">#DC2626</color>
-    <color name="emergency_light">#FADBD8</color>
-    <color name="emergency_dark">#C0392B</color>
-    <color name="emergency_orange">#EA580C</color>
+    <!-- Emergency Colors - Reserved for Critical Actions Only -->
+    <color name="emergency_red">#EF4444</color>
+    <color name="emergency_light">#FEE2E2</color>
+    <color name="emergency_dark">#DC2626</color>
+    <color name="emergency_orange">#F59E0B</color>
+    <color name="emergency_bg">#FEF3C7</color>
     <color name="emergency_green">#16A34A</color>
 
     <!-- Background Colors -->
     <color name="background_primary">#FFFFFF</color>
-    <color name="background_secondary">#F7FAFC</color>
+    <color name="background_secondary">#F8FAFC</color>
     <color name="background_tertiary">#F1F5F9</color>
 
-    <!-- Text Colors -->
-    <color name="text_primary">#1A202C</color>
-    <color name="text_secondary">#4A5568</color>
-    <color name="text_tertiary">#718096</color>
-    <color name="text_hint">#BDBDBD</color>
+    <!-- Text Colors - Improved Contrast -->
+    <color name="text_primary">#0F172A</color>
+    <color name="text_secondary">#64748B</color>
+    <color name="text_tertiary">#94A3B8</color>
+    <color name="text_hint">#CBD5E0</color>
     <color name="text_on_primary">#FFFFFF</color>
 
     <!-- Severity Colors -->
@@ -36,6 +38,9 @@
     <color name="severity_moderate">#FF9800</color>
     <color name="severity_high">#FF5722</color>
     <color name="severity_critical">#D32F2F</color>
+    <color name="severity_urgent">#FF5722</color>
+    <color name="severity_important">#FF9800</color>
+    <color name="severity_basic">#4CAF50</color>
 
     <!-- Status Colors -->
     <color name="success">#38A169</color>
@@ -49,6 +54,18 @@
 
     <!-- Card and Surface Colors -->
     <color name="surface">#FFFFFF</color>
+
+    <!-- Emergency Mode Specific Colors -->
+    <color name="emergency_background">#B71C1C</color>
+    <color name="emergency_surface">#D32F2F</color>
+    <color name="emergency_surface_variant">#F44336</color>
+    <color name="emergency_on_surface">#FFFFFF</color>
+    <color name="emergency_step_complete">#4CAF50</color>
+    <color name="emergency_step_current">#FFC107</color>
+    <color name="emergency_step_pending">#9E9E9E</color>
+    <color name="emergency_timer_urgent">#FF1744</color>
+    <color name="emergency_timer_warning">#FF9800</color>
+    <color name="emergency_timer_normal">#4CAF50</color>
     <color name="surface_variant">#EDF2F7</color>
     <color name="outline">#E0E0E0</color>
 

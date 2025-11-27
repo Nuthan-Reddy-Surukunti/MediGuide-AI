@@ -4,8 +4,9 @@
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
     android:layout_margin="8dp"
-    app:cardCornerRadius="8dp"
-    app:cardElevation="2dp">
+    app:cardCornerRadius="12dp"
+    app:cardElevation="2dp"
+    android:background="@drawable/contact_card_background">
 
     <LinearLayout
         android:layout_width="match_parent"
@@ -26,16 +27,17 @@
                 android:text="Emergency Service"
                 android:textColor="@color/text_primary"
                 android:textSize="16sp"
-                android:textStyle="bold" />
+                android:fontFamily="sans-serif-medium" />
 
             <TextView
                 android:id="@+id/tvContactNumber"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="4dp"
-                android:text="911"
+                android:text="112"
                 android:textColor="@color/text_secondary"
-                android:textSize="14sp" />
+                android:textSize="14sp"
+                android:fontFamily="sans-serif"/>
 
             <TextView
                 android:id="@+id/tvContactType"
@@ -47,7 +49,8 @@
                 android:paddingVertical="2dp"
                 android:text="EMERGENCY"
                 android:textColor="@color/primary"
-                android:textSize="10sp" />
+                android:textSize="10sp"
+                android:fontFamily="sans-serif-medium"/>
         </LinearLayout>
 
         <com.google.android.material.button.MaterialButton
@@ -57,8 +60,8 @@
             android:layout_gravity="center_vertical"
             android:backgroundTint="@color/primary"
             android:text="@string/call_contact"
-            app:icon="@android:drawable/ic_menu_call"
-            app:iconTint="@color/white" />
+            app:icon="@drawable/ic_phone_call"
+            app:iconTint="@color/text_on_primary" />
 
     </LinearLayout>
 

@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
+    <!-- Guide-specific colors only - other colors moved to main colors.xml -->
     <color name="overlay_dark">#80000000</color>
-    <color name="accent_light">#E3F2FD</color>
 </resources>

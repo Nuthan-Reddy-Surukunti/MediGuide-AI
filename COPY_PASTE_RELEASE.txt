@@ -1,0 +1,101 @@
+═══════════════════════════════════════════════════════════════════
+📋 COPY-PASTE GUIDE FOR GOOGLE PLAY CONSOLE - CLOSED TESTING
+═══════════════════════════════════════════════════════════════════
+
+App: MediGuide AI
+Version: 1.0
+Date: November 12, 2025
+
+═══════════════════════════════════════════════════════════════════
+STEP 1: UPLOAD APP BUNDLE
+═══════════════════════════════════════════════════════════════════
+
+1. Drag and drop your .aab file into the upload area
+2. Wait for "Upload complete" message
+3. Proceed to next step
+
+═══════════════════════════════════════════════════════════════════
+STEP 2: RELEASE NAME
+═══════════════════════════════════════════════════════════════════
+
+Copy and paste this (50 characters max):
+
+MediGuide AI v1.0 - Initial Release
+
+═══════════════════════════════════════════════════════════════════
+STEP 3: RELEASE NOTES
+═══════════════════════════════════════════════════════════════════
+
+Copy EVERYTHING below (including the <en-US> tags):
+
+<en-US>
+🎉 Welcome to MediGuide AI v1.0!
+
+Your AI-powered first aid companion for emergency situations.
+
+✨ Key Features:
+• 50+ comprehensive first aid guides with step-by-step instructions
+• AI Assistant for instant medical guidance (offline capable)
+• Voice-activated emergency assistance
+• Smart location detection for local emergency numbers
+• Emergency contacts management
+• Favorites & recently viewed guides
+• Dark mode support
+• Completely ad-free experience
+
+🏥 Categories Covered:
+• Bleeding & Wounds
+• Burns & Scalds
+• Fractures & Injuries
+• Breathing Emergencies
+• Cardiac Events
+• Environmental Emergencies
+• And much more!
+
+🔒 Privacy First:
+• Secure Google Sign-In
+• Data encrypted in transit
+• Account deletion available
+
+⚠️ Important:
+This app provides first aid guidance only. Always call emergency services (112/911) for serious medical situations.
+
+Thank you for testing MediGuide AI! Your feedback helps us save lives.
+</en-US>
+
+═══════════════════════════════════════════════════════════════════
+STEP 4: REVIEW AND CONFIRM
+═══════════════════════════════════════════════════════════════════
+
+1. Check that all information is correct
+2. Click "Review release"
+3. Click "Start rollout to Closed testing"
+4. Confirm the rollout
+
+═══════════════════════════════════════════════════════════════════
+NEXT STEPS AFTER RELEASE
+═══════════════════════════════════════════════════════════════════
+
+1. Go to: Testing → Closed testing → Testers
+2. Add testers via email list or Google Group
+3. Get the opt-in URL
+4. Share with your testers
+5. Collect feedback for 1-2 weeks
+6. Fix any bugs reported
+7. Prepare for production release!
+
+═══════════════════════════════════════════════════════════════════
+✅ CHECKLIST
+═══════════════════════════════════════════════════════════════════
+
+Before clicking "Start rollout", make sure:
+□ App bundle (.aab) uploaded successfully
+□ Release name is filled
+□ Release notes are filled with <en-US> tags
+□ Automatic signing is ON (should show "Automatic protection is on")
+□ You're in the Closed testing track (not Production!)
+
+═══════════════════════════════════════════════════════════════════
+
+Good luck! 🚀
+

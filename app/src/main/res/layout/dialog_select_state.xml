@@ -30,7 +30,7 @@
         android:text="Use My Location (GPS)"
         android:textColor="@color/white"
         android:backgroundTint="@color/primary"
-        app:icon="@android:drawable/ic_menu_mylocation"
+        app:icon="@drawable/ic_location_state"
         app:iconGravity="start"
         android:layout_marginBottom="12dp"
         style="@style/Widget.Material3.Button" />
@@ -41,7 +41,7 @@
         android:layout_height="wrap_content"
         android:text="Select State Manually"
         android:textColor="@color/primary"
-        app:icon="@android:drawable/ic_menu_edit"
+        app:icon="@drawable/ic_edit_profile"
         app:iconGravity="start"
         android:layout_marginBottom="12dp"
         style="@style/Widget.Material3.Button.OutlinedButton" />

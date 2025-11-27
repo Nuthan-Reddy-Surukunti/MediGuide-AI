@@ -1,0 +1,305 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>MediGuide AI Icon Generator</title>
+    <style>
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            min-height: 100vh;
+            margin: 0;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            padding: 20px;
+        }
+        .container {
+            background: white;
+            border-radius: 20px;
+            padding: 40px;
+            box-shadow: 0 20px 60px rgba(0,0,0,0.3);
+            text-align: center;
+            max-width: 600px;
+        }
+        h1 {
+            color: #333;
+            margin-bottom: 10px;
+        }
+        p {
+            color: #666;
+            margin-bottom: 30px;
+        }
+        canvas {
+            border: 2px solid #ddd;
+            border-radius: 10px;
+            margin: 20px 0;
+            box-shadow: 0 4px 12px rgba(0,0,0,0.1);
+        }
+        .color-options {
+            display: flex;
+            gap: 15px;
+            justify-content: center;
+            margin: 20px 0;
+            flex-wrap: wrap;
+        }
+        .color-btn {
+            padding: 12px 24px;
+            border: 2px solid #ddd;
+            border-radius: 8px;
+            cursor: pointer;
+            font-size: 14px;
+            font-weight: 600;
+            transition: all 0.3s;
+            background: white;
+        }
+        .color-btn:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 4px 12px rgba(0,0,0,0.15);
+        }
+        .color-btn.active {
+            border-color: #667eea;
+            background: #667eea;
+            color: white;
+        }
+        .download-btn {
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            color: white;
+            padding: 15px 40px;
+            border: none;
+            border-radius: 50px;
+            font-size: 18px;
+            font-weight: bold;
+            cursor: pointer;
+            margin-top: 20px;
+            transition: all 0.3s;
+            box-shadow: 0 4px 15px rgba(102, 126, 234, 0.4);
+        }
+        .download-btn:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 6px 20px rgba(102, 126, 234, 0.6);
+        }
+        .info {
+            background: #f8f9fa;
+            padding: 15px;
+            border-radius: 8px;
+            margin-top: 20px;
+            font-size: 14px;
+            color: #555;
+        }
+        .preview-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(100px, 1fr));
+            gap: 15px;
+            margin: 20px 0;
+        }
+        .preview-item {
+            text-align: center;
+        }
+        .preview-canvas {
+            border: 1px solid #ddd;
+            border-radius: 8px;
+        }
+        .preview-label {
+            font-size: 12px;
+            color: #666;
+            margin-top: 5px;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h1>🏥 MediGuide AI Icon Generator</h1>
+        <p>Generate your 512x512 Play Store icon instantly!</p>
+
+        <div class="color-options">
+            <button class="color-btn active" onclick="changeColor('#E74C3C', this)">
+                🔴 Emergency Red
+            </button>
+            <button class="color-btn" onclick="changeColor('#3498DB', this)">
+                🔵 Medical Blue
+            </button>
+            <button class="color-btn" onclick="changeColor('#C0392B', this)">
+                🟥 Dark Red
+            </button>
+            <button class="color-btn" onclick="changeColor('#27AE60', this)">
+                🟢 Health Green
+            </button>
+        </div>
+
+        <canvas id="icon" width="512" height="512"></canvas>
+
+        <div class="preview-grid">
+            <div class="preview-item">
+                <canvas class="preview-canvas" id="preview192" width="96" height="96"></canvas>
+                <div class="preview-label">192x192</div>
+            </div>
+            <div class="preview-item">
+                <canvas class="preview-canvas" id="preview144" width="72" height="72"></canvas>
+                <div class="preview-label">144x144</div>
+            </div>
+            <div class="preview-item">
+                <canvas class="preview-canvas" id="preview96" width="48" height="48"></canvas>
+                <div class="preview-label">96x96</div>
+            </div>
+            <div class="preview-item">
+                <canvas class="preview-canvas" id="preview48" width="24" height="24"></canvas>
+                <div class="preview-label">48x48</div>
+            </div>
+        </div>
+
+        <button class="download-btn" onclick="downloadIcon()">
+            📥 Download Icon (512x512 PNG)
+        </button>
+
+        <div class="info">
+            ✅ 512x512 pixels | ✅ PNG format | ✅ Transparent background support<br>
+            ✅ Ready for Google Play Store submission
+        </div>
+    </div>
+
+    <script>
+        let currentColor = '#E74C3C';
+
+        function drawIcon(canvas, size) {
+            const ctx = canvas.getContext('2d');
+            const scale = size / 512;
+
+            // Clear canvas
+            ctx.clearRect(0, 0, size, size);
+
+            // Draw background circle with gradient
+            const gradient = ctx.createLinearGradient(0, 0, size, size);
+            gradient.addColorStop(0, currentColor);
+            gradient.addColorStop(1, shadeColor(currentColor, -20));
+
+            ctx.fillStyle = gradient;
+            ctx.beginPath();
+            ctx.arc(size/2, size/2, size/2, 0, Math.PI * 2);
+            ctx.fill();
+
+            // Add subtle shadow
+            ctx.shadowColor = 'rgba(0, 0, 0, 0.2)';
+            ctx.shadowBlur = 10 * scale;
+            ctx.shadowOffsetX = 0;
+            ctx.shadowOffsetY = 4 * scale;
+
+            // Draw medical cross
+            ctx.fillStyle = '#FFFFFF';
+            ctx.shadowColor = 'transparent';
+
+            const crossWidth = 80 * scale;
+            const crossHeight = 240 * scale;
+            const centerX = size / 2;
+            const centerY = size / 2;
+
+            // Vertical bar of cross (rounded rectangle)
+            drawRoundedRect(ctx,
+                centerX - crossWidth/2,
+                centerY - crossHeight/2,
+                crossWidth,
+                crossHeight,
+                10 * scale
+            );
+
+            // Horizontal bar of cross (rounded rectangle)
+            drawRoundedRect(ctx,
+                centerX - crossHeight/2,
+                centerY - crossWidth/2,
+                crossHeight,
+                crossWidth,
+                10 * scale
+            );
+
+            // Add subtle "AI" badge in bottom right
+            if (size >= 192) {
+                const badgeSize = 60 * scale;
+                const badgeX = centerX + crossHeight/2 - badgeSize/2 - 20 * scale;
+                const badgeY = centerY + crossHeight/2 - badgeSize/2 - 20 * scale;
+
+                // Badge background
+                ctx.fillStyle = '#3498DB';
+                ctx.beginPath();
+                ctx.arc(badgeX + badgeSize/2, badgeY + badgeSize/2, badgeSize/2, 0, Math.PI * 2);
+                ctx.fill();
+
+                // Badge text
+                ctx.fillStyle = '#FFFFFF';
+                ctx.font = `bold ${24 * scale}px Arial`;
+                ctx.textAlign = 'center';
+                ctx.textBaseline = 'middle';
+                ctx.fillText('AI', badgeX + badgeSize/2, badgeY + badgeSize/2);
+            }
+        }
+
+        function drawRoundedRect(ctx, x, y, width, height, radius) {
+            ctx.beginPath();
+            ctx.moveTo(x + radius, y);
+            ctx.lineTo(x + width - radius, y);
+            ctx.quadraticCurveTo(x + width, y, x + width, y + radius);
+            ctx.lineTo(x + width, y + height - radius);
+            ctx.quadraticCurveTo(x + width, y + height, x + width - radius, y + height);
+            ctx.lineTo(x + radius, y + height);
+            ctx.quadraticCurveTo(x, y + height, x, y + height - radius);
+            ctx.lineTo(x, y + radius);
+            ctx.quadraticCurveTo(x, y, x + radius, y);
+            ctx.closePath();
+            ctx.fill();
+        }
+
+        function shadeColor(color, percent) {
+            const num = parseInt(color.replace("#",""), 16);
+            const amt = Math.round(2.55 * percent);
+            const R = Math.max(0, Math.min(255, (num >> 16) + amt));
+            const G = Math.max(0, Math.min(255, (num >> 8 & 0x00FF) + amt));
+            const B = Math.max(0, Math.min(255, (num & 0x0000FF) + amt));
+            return "#" + (0x1000000 + R * 0x10000 + G * 0x100 + B).toString(16).slice(1);
+        }
+
+        function changeColor(color, btn) {
+            currentColor = color;
+
+            // Update active button
+            document.querySelectorAll('.color-btn').forEach(b => b.classList.remove('active'));
+            btn.classList.add('active');
+
+            // Redraw all icons
+            drawAllIcons();
+        }
+
+        function drawAllIcons() {
+            drawIcon(document.getElementById('icon'), 512);
+            drawIcon(document.getElementById('preview192'), 96);
+            drawIcon(document.getElementById('preview144'), 72);
+            drawIcon(document.getElementById('preview96'), 48);
+            drawIcon(document.getElementById('preview48'), 24);
+        }
+
+        function downloadIcon() {
+            const canvas = document.getElementById('icon');
+            const link = document.createElement('a');
+            link.download = 'ic_launcher_playstore.png';
+            link.href = canvas.toDataURL('image/png');
+            link.click();
+
+            // Show success message
+            const btn = event.target;
+            const originalText = btn.textContent;
+            btn.textContent = '✅ Downloaded! Check your Downloads folder';
+            btn.style.background = '#27AE60';
+            setTimeout(() => {
+                btn.textContent = originalText;
+                btn.style.background = 'linear-gradient(135deg, #667eea 0%, #764ba2 100%)';
+            }, 3000);
+        }
+
+        // Draw initial icons
+        window.onload = function() {
+            drawAllIcons();
+        };
+    </script>
+</body>
+</html>
+

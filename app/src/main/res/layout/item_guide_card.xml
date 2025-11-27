@@ -4,21 +4,22 @@
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
     android:layout_margin="8dp"
-    app:cardCornerRadius="12dp"
-    app:cardElevation="4dp">
+    app:cardCornerRadius="16dp"
+    app:cardElevation="2dp"
+    android:foreground="?attr/selectableItemBackground">
 
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:orientation="vertical"
-        android:padding="16dp">
+        android:padding="20dp">
 
         <!-- Photo Demonstration Section - Above the guide content for visual learning -->
         <FrameLayout
             android:id="@+id/photoContainer"
             android:layout_width="match_parent"
-            android:layout_height="180dp"
-            android:layout_marginBottom="12dp"
+            android:layout_height="200dp"
+            android:layout_marginBottom="16dp"
             android:visibility="gone"
             android:background="@drawable/card_background">
 
@@ -36,8 +37,8 @@
                 android:layout_gravity="bottom"
                 android:background="@drawable/gradient_overlay"
                 android:orientation="horizontal"
-                android:paddingHorizontal="12dp"
-                android:paddingVertical="8dp"
+                android:paddingHorizontal="16dp"
+                android:paddingVertical="10dp"
                 android:gravity="center_vertical">
 
                 <!-- Photo indicator -->
@@ -53,17 +54,17 @@
                     android:layout_width="0dp"
                     android:layout_height="wrap_content"
                     android:layout_weight="1"
-                    android:layout_marginStart="8dp"
+                    android:layout_marginStart="10dp"
                     android:text="Step-by-step demonstration"
                     android:textColor="@android:color/white"
-                    android:textSize="12sp"
-                    android:fontFamily="@font/roboto_medium" />
+                    android:textSize="13sp"
+                    android:fontFamily="sans-serif-medium" />
 
                 <!-- View full size button -->
                 <ImageView
                     android:id="@+id/ivPhotoFullscreen"
-                    android:layout_width="24dp"
-                    android:layout_height="24dp"
+                    android:layout_width="28dp"
+                    android:layout_height="28dp"
                     android:src="@drawable/ic_fullscreen"
                     android:background="?attr/selectableItemBackgroundBorderless"
                     android:padding="4dp"
@@ -80,14 +81,14 @@
             android:layout_height="wrap_content"
             android:orientation="horizontal">
 
-            <!-- Guide Icon - Keep existing icon for recognition -->
+            <!-- Guide Icon - Larger and more prominent -->
             <ImageView
                 android:id="@+id/ivGuideImage"
-                android:layout_width="60dp"
-                android:layout_height="60dp"
-                android:layout_marginEnd="12dp"
+                android:layout_width="64dp"
+                android:layout_height="64dp"
+                android:layout_marginEnd="16dp"
                 android:background="@drawable/circle_background"
-                android:padding="8dp"
+                android:padding="10dp"
                 android:src="@drawable/ic_cpr"
                 android:scaleType="centerInside"
                 android:contentDescription="Guide illustration" />

@@ -1,0 +1,25 @@
+<?xml version="1.0" encoding="utf-8"?>
+<vector xmlns:android="http://schemas.android.com/apk/res/android"
+    android:width="24dp"
+    android:height="24dp"
+    android:viewportWidth="24"
+    android:viewportHeight="24"
+    android:tint="@color/emergency_red">
+
+    <!-- Microphone body -->
+    <path
+        android:fillColor="@color/emergency_red"
+        android:pathData="M12,2A3,3 0 0,1 15,5V11A3,3 0 0,1 12,14A3,3 0 0,1 9,11V5A3,3 0 0,1 12,2M19,11C19,14.53 16.39,17.44 13,17.93V21H11V17.93C7.61,17.44 5,14.53 5,11H7A5,5 0 0,0 12,16A5,5 0 0,0 17,11H19Z" />
+
+    <!-- Emergency alert indicator -->
+    <path
+        android:fillColor="@color/emergency_red"
+        android:pathData="M12,0L15.09,8.26L24,12L15.09,15.74L12,24L8.91,15.74L0,12L8.91,8.26L12,0Z" />
+
+    <!-- Warning symbol -->
+    <path
+        android:fillColor="@android:color/white"
+        android:pathData="M12,9A1,1 0 0,0 11,10V14A1,1 0 0,0 12,15A1,1 0 0,0 13,14V10A1,1 0 0,0 12,9M12,17A1,1 0 0,0 11,18A1,1 0 0,0 12,19A1,1 0 0,0 13,18A1,1 0 0,0 12,17Z" />
+
+</vector>
+

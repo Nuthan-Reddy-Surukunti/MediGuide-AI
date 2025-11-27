@@ -1,0 +1,99 @@
+═══════════════════════════════════════════════════════════════════
+📋 ALTERNATE RELEASE NOTES (SHORTER VERSION)
+═══════════════════════════════════════════════════════════════════
+
+If you prefer shorter release notes, use this instead:
+
+═══════════════════════════════════════════════════════════════════
+VERSION 1: BRIEF & PROFESSIONAL
+═══════════════════════════════════════════════════════════════════
+
+<en-US>
+Welcome to MediGuide AI - Your pocket first aid companion.
+
+Features:
+• 50+ step-by-step first aid guides
+• AI-powered medical guidance (works offline)
+• Voice assistant for hands-free help
+• Location-based emergency numbers
+• Emergency contacts manager
+• Ad-free experience
+
+Important: This app provides guidance only. Always call emergency services for serious medical situations.
+
+Thank you for testing!
+</en-US>
+
+═══════════════════════════════════════════════════════════════════
+VERSION 2: FRIENDLY & CASUAL
+═══════════════════════════════════════════════════════════════════
+
+<en-US>
+👋 Welcome to MediGuide AI v1.0!
+
+Your smart first aid assistant is here to help in emergencies.
+
+What's included:
+✓ 50+ detailed first aid guides
+✓ AI Assistant (works even without internet!)
+✓ Voice commands for hands-free use
+✓ Quick access to emergency services
+✓ Save important contacts
+✓ No ads, ever!
+
+⚠️ Remember: Always call 112/911 for serious emergencies.
+
+Thanks for being an early tester! Your feedback matters.
+</en-US>
+
+═══════════════════════════════════════════════════════════════════
+VERSION 3: TECHNICAL & DETAILED
+═══════════════════════════════════════════════════════════════════
+
+<en-US>
+MediGuide AI v1.0 - Initial Release
+
+First Aid & Emergency Guidance Application
+
+FEATURES:
+• Comprehensive first aid database (50+ guides)
+• Offline-capable AI medical assistant
+• Voice recognition for emergency queries
+• GPS-based location detection
+• Emergency contact management
+• Recently viewed & favorites system
+• Material Design 3 UI with dark mode
+• Google Sign-In authentication
+• End-to-end encrypted data transmission
+
+CATEGORIES:
+Bleeding, Burns, Fractures, CPR, Choking, Poisoning, Heat/Cold Emergencies, Allergic Reactions, Snake Bites, and more.
+
+PRIVACY & SECURITY:
+• OAuth 2.0 authentication
+• Data encryption in transit
+• Account deletion available
+• No data sharing with third parties
+
+DISCLAIMER:
+This application provides first aid information for educational purposes. It does not replace professional medical advice. In life-threatening situations, immediately contact emergency services (112/911).
+
+Testing feedback welcome at: [your-email]
+
+Minimum Requirements: Android 7.0 (API 24)
+Target: Android 14 (API 34)
+</en-US>
+
+═══════════════════════════════════════════════════════════════════
+CHOOSE THE VERSION THAT FITS YOUR STYLE:
+═══════════════════════════════════════════════════════════════════
+
+Version 1 → Professional, concise, to the point
+Version 2 → Friendly, approachable, easy to read
+Version 3 → Technical, detailed, comprehensive
+
+For closed testing, I recommend VERSION 2 (Friendly & Casual)
+For production release, use VERSION 1 (Brief & Professional)
+
+═══════════════════════════════════════════════════════════════════
+

@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-    <string name="app_name">First Aid</string>
+    <string name="app_name">MediGuide AI</string>
 
     <!-- Navigation -->
     <string name="nav_home">Home</string>
@@ -12,15 +12,15 @@
     <string name="nav_profile">Profile</string>
 
     <!-- Home Screen -->
-    <string name="home_title">First Aid Guide</string>
-    <string name="home_subtitle">Quick access to emergency procedures</string>
+    <string name="home_title">First Aid Training Guide</string>
+    <string name="home_subtitle">Educational reference for learning procedures</string>
     <string name="categories_title">Categories</string>
     <string name="recent_guides">Recently Viewed</string>
     <string name="favorites">Favorites</string>
-    <string name="emergency_call_button">🚨 EMERGENCY CALL 112</string>
-    <string name="help_text_all_guides">For first aid guides, tap \'All Guides\' below</string>
+    <string name="emergency_call_button">🚨 QUICK CALL 112</string>
+    <string name="help_text_all_guides">For training guides, tap \'All Guides\' below</string>
     <string name="quick_actions">Quick Actions</string>
-    <string name="emergency_tip">Emergency Tip</string>
+    <string name="emergency_tip">Training Tip</string>
     <string name="tap_to_learn_more">Tap to learn more</string>
     <string name="quick_access_ai">Quick Access AI Assistant</string>
     <string name="ask_ai_assistant">Ask AI Assistant</string>
@@ -28,11 +28,11 @@
     <string name="choking_label">Choking</string>
     <string name="burns_label">Burns</string>
     <string name="bleeding_label">Bleeding</string>
-    <string name="tip_always_call">Always call emergency services in life-threatening situations</string>
+    <string name="tip_always_call">For educational purposes only. Always call emergency services in real emergencies.</string>
     <string name="no_recent_guides">No recently viewed guides yet</string>
 
     <!-- Search Screen -->
-    <string name="search_hint">Search first aid procedures...</string>
+    <string name="search_hint">Search training guides...</string>
     <string name="search_no_results">No results found</string>
     <string name="recent_searches">Recent Searches</string>
     <string name="clear_history">Clear History</string>
@@ -40,18 +40,18 @@
     <!-- Guide Detail -->
     <string name="steps_title">Steps</string>
     <string name="warnings_title">Warnings</string>
-    <string name="when_to_call_emergency">When to Call Emergency</string>
-    <string name="call_emergency">Call Emergency Services</string>
+    <string name="when_to_call_emergency">When to Seek Help</string>
+    <string name="call_emergency">Call for Help</string>
     <string name="mark_favorite">Add to Favorites</string>
     <string name="remove_favorite">Remove from Favorites</string>
 
-    <!-- Emergency Contacts -->
-    <string name="contacts_title">Emergency Contacts</string>
+    <!-- Quick Contacts -->
+    <string name="contacts_title">Quick Contacts</string>
     <string name="add_contact">Add Contact</string>
     <string name="edit_contact">Edit Contact</string>
     <string name="delete_contact">Delete Contact</string>
     <string name="call_contact">Call</string>
-    <string name="default_contacts">Emergency Services</string>
+    <string name="default_contacts">Quick Dial Services</string>
     <string name="personal_contacts">Personal Contacts</string>
 
     <!-- Categories -->
@@ -72,11 +72,11 @@
 
     <!-- Permissions -->
     <string name="permission_call_required">Phone call permission required</string>
-    <string name="permission_call_rationale">This permission is needed to call emergency services</string>
+    <string name="permission_call_rationale">This permission is needed to make quick calls</string>
     <string name="permission_required">Permission required</string>
-    <string name="permission_microphone_rationale">Microphone access is required for voice commands and AI emergency guidance</string>
-    <string name="permission_location_rationale">Location access is needed to find nearby hospitals and emergency services</string>
-    <string name="contacts_permission_rationale">We need access to your contacts to let you import and quickly call trusted people in emergencies.</string>
+    <string name="permission_microphone_rationale">Microphone access is required for voice commands and AI assistance</string>
+    <string name="permission_location_rationale">Location access is needed to find nearby hospitals</string>
+    <string name="contacts_permission_rationale">We need access to your contacts to let you import and quickly call trusted people.</string>
     <string name="contacts_permission_permanently_denied">Contacts permission was denied. Please enable it in Settings to import phone contacts.</string>
     <string name="open_settings">Open Settings</string>
     <string name="allow">Allow</string>

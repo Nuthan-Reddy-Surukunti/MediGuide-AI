@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="utf-8"?>
+<vector xmlns:android="http://schemas.android.com/apk/res/android"
+    android:width="24dp"
+    android:height="24dp"
+    android:viewportWidth="24"
+    android:viewportHeight="24"
+    android:tint="@android:color/white">
+
+    <!-- Throat/neck area -->
+    <path
+        android:fillColor="@android:color/white"
+        android:pathData="M12,2C13.1,2 14,2.9 14,4C14,5.1 13.1,6 12,6C10.9,6 10,5.1 10,4C10,2.9 10.9,2 12,2M21,9V7L15,13L13.5,7.5C13.1,6.6 12.2,6 11.2,6H10.8C9.8,6 8.9,6.6 8.5,7.5L7,13L1,7V9H7.5L9,15L11,10V18H13V10L15,15L16.5,9H21Z" />
+
+    <!-- Choking indicator - hands on throat -->
+    <path
+        android:fillColor="@android:color/white"
+        android:pathData="M9,8C9,8 10,9 12,9C14,9 15,8 15,8L14,10C14,10 13,11 12,11C11,11 10,10 10,10L9,8Z" />
+
+</vector>
+

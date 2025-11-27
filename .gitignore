@@ -16,3 +16,11 @@ local.properties
 
 # Archive folder for moved/archived files
 /archive
+
+# Sensitive files - NEVER commit these!
+*.keystore
+*.jks
+keystore.properties
+google-services.json
+# Keep local.properties protected (already listed above)
+

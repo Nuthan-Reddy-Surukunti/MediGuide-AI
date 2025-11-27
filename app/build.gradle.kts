@@ -1,3 +1,6 @@
+import java.io.FileInputStream
+import java.util.Properties
+
 plugins {
     alias(libs.plugins.android.application)
     alias(libs.plugins.jetbrains.kotlin.android)
@@ -6,21 +9,48 @@ plugins {
     id("com.google.gms.google-services")
 }
 
+
 android {
-    namespace = "com.example.firstaidapp"
+    namespace = "com.mediguide.firstaid"
     compileSdk = 36
 
+    // Signing configuration for release builds
+    signingConfigs {
+        create("release") {
+            val keystorePropertiesFile = rootProject.file("keystore.properties")
+            if (keystorePropertiesFile.exists()) {
+                val keystoreProperties = Properties()
+                keystoreProperties.load(FileInputStream(keystorePropertiesFile))
+
+                // Use rootProject.file to get the keystore from project root
+                storeFile = rootProject.file(keystoreProperties.getProperty("storeFile"))
+                storePassword = keystoreProperties.getProperty("storePassword")
+                keyAlias = keystoreProperties.getProperty("keyAlias")
+                keyPassword = keystoreProperties.getProperty("keyPassword")
+            }
+        }
+    }
+
     defaultConfig {
-        applicationId = "com.example.firstaidapp"
+        applicationId = "com.mediguide.firstaid"
         minSdk = 24
         targetSdk = 35
-        versionCode = 1
-        versionName = "1.0"
+        versionCode = 3
+        versionName = "1.1"
 
         testInstrumentationRunner = "androidx.test.runner.AndroidJUnitRunner"
 
-        // Add API key to default config
-        buildConfigField("String", "GEMINI_API_KEY", "\"AIzaSyA-6SYM1ymRRmRpx5dQg-iTiUbNlT2rapI\"")
+        // Load API key from local.properties (secure - not in version control)
+        val localProperties = Properties()
+        val localPropertiesFile = rootProject.file("local.properties")
+        if (localPropertiesFile.exists()) {
+            localPropertiesFile.inputStream().use {
+                localProperties.load(it)
+            }
+        }
+
+        val apiKey = localProperties.getProperty("GEMINI_API_KEY") ?: ""
+        buildConfigField("String", "GEMINI_API_KEY", "\"$apiKey\"")
     }
 
     buildTypes {
@@ -28,7 +58,11 @@ android {
             // Debug configuration - API key inherited from defaultConfig
         }
         release {
-            isMinifyEnabled = false
+            // Apply signing configuration
+            signingConfig = signingConfigs.getByName("release")
+
+            isMinifyEnabled = true           // Enable code shrinking and obfuscation
+            isShrinkResources = true         // Remove unused resources
             proguardFiles(
                 getDefaultProguardFile("proguard-android-optimize.txt"),
                 "proguard-rules.pro"
@@ -97,6 +131,10 @@ dependencies {
 
     // Lottie Animations for engaging first aid procedure demonstrations
     implementation(libs.lottie)
+
+    // Glide for image loading
+    implementation("com.github.bumptech.glide:glide:4.16.0")
+    ksp("com.github.bumptech.glide:ksp:4.16.0")
 
     // Google Play Services for Location
     implementation(libs.play.services.location)

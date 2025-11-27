@@ -1,0 +1,338 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>MediGuide AI Feature Graphic Generator</title>
+    <style>
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            min-height: 100vh;
+            margin: 0;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            padding: 20px;
+        }
+        .container {
+            background: white;
+            border-radius: 20px;
+            padding: 40px;
+            box-shadow: 0 20px 60px rgba(0,0,0,0.3);
+            text-align: center;
+            max-width: 1100px;
+        }
+        h1 {
+            color: #333;
+            margin-bottom: 10px;
+        }
+        p {
+            color: #666;
+            margin-bottom: 30px;
+        }
+        canvas {
+            border: 2px solid #ddd;
+            border-radius: 10px;
+            margin: 20px 0;
+            box-shadow: 0 4px 12px rgba(0,0,0,0.1);
+            max-width: 100%;
+            height: auto;
+        }
+        .style-options {
+            display: flex;
+            gap: 15px;
+            justify-content: center;
+            margin: 20px 0;
+            flex-wrap: wrap;
+        }
+        .style-btn {
+            padding: 12px 24px;
+            border: 2px solid #ddd;
+            border-radius: 8px;
+            cursor: pointer;
+            font-size: 14px;
+            font-weight: 600;
+            transition: all 0.3s;
+            background: white;
+        }
+        .style-btn:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 4px 12px rgba(0,0,0,0.15);
+        }
+        .style-btn.active {
+            border-color: #667eea;
+            background: #667eea;
+            color: white;
+        }
+        .download-btn {
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            color: white;
+            padding: 15px 40px;
+            border: none;
+            border-radius: 50px;
+            font-size: 18px;
+            font-weight: bold;
+            cursor: pointer;
+            margin-top: 20px;
+            transition: all 0.3s;
+            box-shadow: 0 4px 15px rgba(102, 126, 234, 0.4);
+        }
+        .download-btn:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 6px 20px rgba(102, 126, 234, 0.6);
+        }
+        .info {
+            background: #f8f9fa;
+            padding: 15px;
+            border-radius: 8px;
+            margin-top: 20px;
+            font-size: 14px;
+            color: #555;
+        }
+        .preview-container {
+            background: #f8f9fa;
+            padding: 20px;
+            border-radius: 10px;
+            margin: 20px 0;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h1>🎨 MediGuide AI Feature Graphic Generator</h1>
+        <p>Generate your 1024x500 Play Store feature graphic instantly!</p>
+
+        <div class="style-options">
+            <button class="style-btn active" onclick="changeStyle('gradient', this)">
+                🌈 Gradient Style
+            </button>
+            <button class="style-btn" onclick="changeStyle('clean', this)">
+                ✨ Clean Modern
+            </button>
+            <button class="style-btn" onclick="changeStyle('emergency', this)">
+                🚨 Emergency Red
+            </button>
+            <button class="style-btn" onclick="changeStyle('medical', this)">
+                🏥 Medical Blue
+            </button>
+        </div>
+
+        <div class="preview-container">
+            <canvas id="featureGraphic" width="1024" height="500"></canvas>
+        </div>
+
+        <button class="download-btn" onclick="downloadGraphic()">
+            📥 Download Feature Graphic (1024x500 PNG)
+        </button>
+
+        <div class="info">
+            ✅ 1024x500 pixels | ✅ PNG format | ✅ Professional design<br>
+            ✅ Ready for Google Play Store submission<br>
+            💡 This will be shown at the top of your Play Store listing
+        </div>
+    </div>
+
+    <script>
+        let currentStyle = 'gradient';
+
+        const styles = {
+            gradient: {
+                bg1: '#E74C3C',
+                bg2: '#C0392B',
+                accent: '#3498DB',
+                text: '#FFFFFF'
+            },
+            clean: {
+                bg1: '#FFFFFF',
+                bg2: '#F8F9FA',
+                accent: '#E74C3C',
+                text: '#2C3E50'
+            },
+            emergency: {
+                bg1: '#C0392B',
+                bg2: '#8E2B1E',
+                accent: '#FFFFFF',
+                text: '#FFFFFF'
+            },
+            medical: {
+                bg1: '#3498DB',
+                bg2: '#2471A3',
+                accent: '#FFFFFF',
+                text: '#FFFFFF'
+            }
+        };
+
+        function drawFeatureGraphic() {
+            const canvas = document.getElementById('featureGraphic');
+            const ctx = canvas.getContext('2d');
+            const width = 1024;
+            const height = 500;
+
+            // Clear canvas
+            ctx.clearRect(0, 0, width, height);
+
+            const style = styles[currentStyle];
+
+            // Draw background gradient
+            const bgGradient = ctx.createLinearGradient(0, 0, width, height);
+            bgGradient.addColorStop(0, style.bg1);
+            bgGradient.addColorStop(1, style.bg2);
+            ctx.fillStyle = bgGradient;
+            ctx.fillRect(0, 0, width, height);
+
+            // Add diagonal pattern overlay
+            ctx.globalAlpha = 0.1;
+            for (let i = 0; i < 20; i++) {
+                ctx.strokeStyle = '#FFFFFF';
+                ctx.lineWidth = 2;
+                ctx.beginPath();
+                ctx.moveTo(i * 60, 0);
+                ctx.lineTo(i * 60 + 500, 500);
+                ctx.stroke();
+            }
+            ctx.globalAlpha = 1.0;
+
+            // Draw medical cross icon on left
+            const iconSize = 200;
+            const iconX = 100;
+            const iconY = height / 2;
+
+            // Cross background circle
+            ctx.fillStyle = style.accent;
+            ctx.globalAlpha = 0.3;
+            ctx.beginPath();
+            ctx.arc(iconX, iconY, iconSize / 2, 0, Math.PI * 2);
+            ctx.fill();
+            ctx.globalAlpha = 1.0;
+
+            // Medical cross
+            ctx.fillStyle = style.accent;
+            const crossWidth = 30;
+            const crossHeight = 120;
+
+            // Vertical bar
+            drawRoundedRect(ctx,
+                iconX - crossWidth/2,
+                iconY - crossHeight/2,
+                crossWidth,
+                crossHeight,
+                5
+            );
+
+            // Horizontal bar
+            drawRoundedRect(ctx,
+                iconX - crossHeight/2,
+                iconY - crossWidth/2,
+                crossHeight,
+                crossWidth,
+                5
+            );
+
+            // Draw app name and tagline
+            ctx.fillStyle = style.text;
+
+            // App name - large and bold
+            ctx.font = 'bold 90px Arial';
+            ctx.textAlign = 'left';
+            ctx.textBaseline = 'middle';
+            ctx.fillText('MediGuide AI', 280, height / 2 - 60);
+
+            // Tagline
+            ctx.font = '36px Arial';
+            ctx.fillStyle = style.text;
+            ctx.globalAlpha = 0.9;
+            ctx.fillText('Your AI-Powered Emergency First Aid Companion', 280, height / 2 + 30);
+            ctx.globalAlpha = 1.0;
+
+            // Add feature badges at bottom right
+            const badgeY = height / 2 + 90;
+            const badgeSpacing = 180;
+
+            // Badge 1: AI Powered
+            drawBadge(ctx, 280, badgeY, '🤖 AI Powered', style.accent, style.text);
+
+            // Badge 2: Offline Access
+            drawBadge(ctx, 280 + badgeSpacing, badgeY, '📴 Offline', style.accent, style.text);
+
+            // Badge 3: Emergency Ready
+            drawBadge(ctx, 280 + badgeSpacing * 2, badgeY, '🚨 Emergency', style.accent, style.text);
+
+            // Badge 4: 100+ Guides
+            drawBadge(ctx, 280 + badgeSpacing * 3, badgeY, '📚 100+ Guides', style.accent, style.text);
+        }
+
+        function drawBadge(ctx, x, y, text, bgColor, textColor) {
+            const padding = 12;
+            const fontSize = 18;
+
+            ctx.font = `bold ${fontSize}px Arial`;
+            const textWidth = ctx.measureText(text).width;
+
+            // Badge background
+            ctx.fillStyle = bgColor;
+            ctx.globalAlpha = 0.2;
+            drawRoundedRect(ctx, x - padding, y - fontSize/2 - padding,
+                textWidth + padding * 2, fontSize + padding * 2, 8);
+            ctx.globalAlpha = 1.0;
+
+            // Badge text
+            ctx.fillStyle = textColor;
+            ctx.textAlign = 'left';
+            ctx.textBaseline = 'middle';
+            ctx.fillText(text, x, y);
+        }
+
+        function drawRoundedRect(ctx, x, y, width, height, radius) {
+            ctx.beginPath();
+            ctx.moveTo(x + radius, y);
+            ctx.lineTo(x + width - radius, y);
+            ctx.quadraticCurveTo(x + width, y, x + width, y + radius);
+            ctx.lineTo(x + width, y + height - radius);
+            ctx.quadraticCurveTo(x + width, y + height, x + width - radius, y + height);
+            ctx.lineTo(x + radius, y + height);
+            ctx.quadraticCurveTo(x, y + height, x, y + height - radius);
+            ctx.lineTo(x, y + radius);
+            ctx.quadraticCurveTo(x, y, x + radius, y);
+            ctx.closePath();
+            ctx.fill();
+        }
+
+        function changeStyle(style, btn) {
+            currentStyle = style;
+
+            // Update active button
+            document.querySelectorAll('.style-btn').forEach(b => b.classList.remove('active'));
+            btn.classList.add('active');
+
+            // Redraw graphic
+            drawFeatureGraphic();
+        }
+
+        function downloadGraphic() {
+            const canvas = document.getElementById('featureGraphic');
+            const link = document.createElement('a');
+            link.download = 'feature_graphic.png';
+            link.href = canvas.toDataURL('image/png');
+            link.click();
+
+            // Show success message
+            const btn = event.target;
+            const originalText = btn.textContent;
+            btn.textContent = '✅ Downloaded! Check your Downloads folder';
+            btn.style.background = '#27AE60';
+            setTimeout(() => {
+                btn.textContent = originalText;
+                btn.style.background = 'linear-gradient(135deg, #667eea 0%, #764ba2 100%)';
+            }, 3000);
+        }
+
+        // Draw initial graphic
+        window.onload = function() {
+            drawFeatureGraphic();
+        };
+    </script>
+</body>
+</html>
+

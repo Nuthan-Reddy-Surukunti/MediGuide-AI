@@ -76,12 +76,12 @@
                     android:layout_gravity="center_horizontal"
                     android:layout_marginTop="16dp"
                     android:text="Edit Profile"
-                    app:icon="@android:drawable/ic_menu_edit" />
+                    app:icon="@drawable/ic_edit_profile" />
 
             </LinearLayout>
         </androidx.cardview.widget.CardView>
 
-        <!-- Quick Settings Card -->
+        <!-- App Settings Card -->
         <androidx.cardview.widget.CardView
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
@@ -98,16 +98,127 @@
                 <TextView
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:text="Quick Settings"
+                    android:text="⚙️ App Settings"
                     android:textColor="@color/text_primary"
                     android:textSize="18sp"
-                    android:textStyle="bold" />
+                    android:textStyle="bold"
+                    android:layout_marginBottom="12dp" />
 
-                <!-- Dark Mode Switch -->
+
+                <!-- Sound Effects -->
                 <LinearLayout
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:layout_marginTop="12dp"
+                    android:orientation="horizontal"
+                    android:gravity="center_vertical"
+                    android:layout_marginBottom="8dp">
+
+                    <TextView
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:layout_weight="1"
+                        android:text="Sound Effects"
+                        android:textColor="@color/text_primary"
+                        android:textSize="16sp" />
+
+                    <com.google.android.material.switchmaterial.SwitchMaterial
+                        android:id="@+id/switch_sound"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content" />
+                </LinearLayout>
+
+                <!-- Vibration -->
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:orientation="horizontal"
+                    android:gravity="center_vertical"
+                    android:layout_marginBottom="8dp">
+
+                    <TextView
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:layout_weight="1"
+                        android:text="Vibration"
+                        android:textColor="@color/text_primary"
+                        android:textSize="16sp" />
+
+                    <com.google.android.material.switchmaterial.SwitchMaterial
+                        android:id="@+id/switch_vibration"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content" />
+                </LinearLayout>
+
+                <!-- Emergency Confirmation -->
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:orientation="horizontal"
+                    android:gravity="center_vertical"
+                    android:layout_marginBottom="8dp">
+
+                    <TextView
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:layout_weight="1"
+                        android:text="Confirm Emergency Calls"
+                        android:textColor="@color/text_primary"
+                        android:textSize="16sp" />
+
+                    <com.google.android.material.switchmaterial.SwitchMaterial
+                        android:id="@+id/switch_emergency_confirm"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content" />
+                </LinearLayout>
+
+                <!-- Show Images -->
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:orientation="horizontal"
+                    android:gravity="center_vertical"
+                    android:layout_marginBottom="8dp">
+
+                    <TextView
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:layout_weight="1"
+                        android:text="Show Images in Guides"
+                        android:textColor="@color/text_primary"
+                        android:textSize="16sp" />
+
+                    <com.google.android.material.switchmaterial.SwitchMaterial
+                        android:id="@+id/switch_show_images"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content" />
+                </LinearLayout>
+
+                <!-- Save Search History -->
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:orientation="horizontal"
+                    android:gravity="center_vertical"
+                    android:layout_marginBottom="8dp">
+
+                    <TextView
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:layout_weight="1"
+                        android:text="Save Search History"
+                        android:textColor="@color/text_primary"
+                        android:textSize="16sp" />
+
+                    <com.google.android.material.switchmaterial.SwitchMaterial
+                        android:id="@+id/switch_save_history"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content" />
+                </LinearLayout>
+
+                <!-- Quick Dial -->
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
                     android:orientation="horizontal"
                     android:gravity="center_vertical">
 
@@ -115,12 +226,12 @@
                         android:layout_width="0dp"
                         android:layout_height="wrap_content"
                         android:layout_weight="1"
-                        android:text="Dark Mode"
+                        android:text="Quick Dial Emergency Contacts"
                         android:textColor="@color/text_primary"
                         android:textSize="16sp" />
 
                     <com.google.android.material.switchmaterial.SwitchMaterial
-                        android:id="@+id/switch_dark_mode"
+                        android:id="@+id/switch_quick_dial"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content" />
                 </LinearLayout>
@@ -128,15 +239,24 @@
             </LinearLayout>
         </androidx.cardview.widget.CardView>
 
+        <!-- Action Buttons -->
+        <com.google.android.material.button.MaterialButton
+            android:id="@+id/btn_reset_defaults"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="Reset to Defaults"
+            style="@style/Widget.Material3.Button.OutlinedButton"
+            android:layout_marginBottom="8dp" />
+
         <com.google.android.material.button.MaterialButton
             android:id="@+id/btn_sign_out"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:text="Sign out"
-            app:icon="@android:drawable/ic_lock_power_off"
+            android:text="Sign Out"
+            app:icon="@drawable/ic_logout"
             android:layout_marginBottom="16dp" />
 
-        <!-- Medical Information Card -->
+        <!-- Health Information Card -->
         <androidx.cardview.widget.CardView
             android:id="@+id/card_medical_info"
             android:layout_width="match_parent"
@@ -161,7 +281,7 @@
                         android:layout_width="0dp"
                         android:layout_height="wrap_content"
                         android:layout_weight="1"
-                        android:text="🏥 Medical Information"
+                        android:text="🏥 Health Information"
                         android:textColor="@color/text_primary"
                         android:textSize="18sp"
                         android:textStyle="bold" />
@@ -255,7 +375,7 @@
                         android:layout_marginTop="4dp" />
                 </LinearLayout>
 
-                <!-- Medical Conditions -->
+                <!-- Health Conditions -->
                 <LinearLayout
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
@@ -265,7 +385,7 @@
                     <TextView
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:text="Medical Conditions"
+                        android:text="Health Conditions"
                         android:textColor="@color/text_secondary"
                         android:textSize="12sp" />
 
@@ -327,14 +447,14 @@
                         android:layout_marginTop="4dp" />
                 </LinearLayout>
 
-                <!-- Edit Medical Info Button -->
+                <!-- Edit Health Info Button -->
                 <com.google.android.material.button.MaterialButton
                     android:id="@+id/btn_edit_medical_info"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:layout_marginTop="8dp"
-                    android:text="Edit Medical Information"
-                    app:icon="@android:drawable/ic_menu_edit" />
+                    android:text="Edit Health Information"
+                    app:icon="@drawable/ic_edit_profile" />
 
             </LinearLayout>
         </androidx.cardview.widget.CardView>

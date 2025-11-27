@@ -5,22 +5,49 @@
     android:viewportWidth="108"
     android:viewportHeight="108">
 
-    <!-- Background Circle -->
+    <!-- Background Circle with Gradient Effect -->
+    <path
+        android:fillColor="#E53935"
+        android:pathData="M54,54m-48,0a48,48 0,1 1,96 0a48,48 0,1 1,-96 0" />
+
+    <!-- Inner Gradient Circle -->
     <path
         android:fillColor="#D32F2F"
-        android:pathData="M54,54m-50,0a50,50 0,1 1,100 0a50,50 0,1 1,-100 0" />
+        android:pathData="M54,54m-44,0a44,44 0,1 1,88 0a44,44 0,1 1,-88 0" />
 
-    <!-- White Medical Cross -->
+    <!-- Medical Cross - Vertical Bar -->
     <path
         android:fillColor="#FFFFFF"
-        android:pathData="M54,24L54,84M24,54L84,54"
-        android:strokeWidth="8"
-        android:strokeLineCap="round" />
+        android:pathData="M46,28 L62,28 L62,80 L46,80 Z"
+        android:strokeWidth="0" />
 
-    <!-- Inner shadow for depth -->
+    <!-- Medical Cross - Horizontal Bar -->
     <path
-        android:fillColor="#B71C1C"
-        android:pathData="M54,54m-45,0a45,45 0,1 1,90 0a45,45 0,1 1,-90 0"
-        android:fillAlpha="0.1" />
+        android:fillColor="#FFFFFF"
+        android:pathData="M28,46 L80,46 L80,62 L28,62 Z"
+        android:strokeWidth="0" />
+
+    <!-- Pulse/Heartbeat Line (ECG style) -->
+    <path
+        android:pathData="M20,64 L30,64 L34,58 L38,70 L42,56 L46,64 L88,64"
+        android:strokeColor="#FFFFFF"
+        android:strokeWidth="2.5"
+        android:fillColor="@android:color/transparent"
+        android:strokeLineCap="round"
+        android:strokeLineJoin="round"
+        android:fillAlpha="0.9" />
+
+    <!-- Small Heart Icon in corner -->
+    <path
+        android:fillColor="#FFFFFF"
+        android:pathData="M74,20 C72,18 69,18 67,20 C65,18 62,18 60,20 C58,22 58,25 60,27 L67,34 L74,27 C76,25 76,22 74,20 Z"
+        android:fillAlpha="0.85" />
+
+    <!-- Subtle highlight for 3D effect -->
+    <path
+        android:fillColor="#FFFFFF"
+        android:pathData="M54,6 a48,48 0 0,1 34,14 a48,48 0 0,0 -34,-10 a48,48 0 0,0 -34,10 a48,48 0 0,1 34,-14"
+        android:fillAlpha="0.15" />
+
 </vector>
 

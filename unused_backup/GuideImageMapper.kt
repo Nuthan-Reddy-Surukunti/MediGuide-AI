@@ -97,7 +97,7 @@ object GuideImageMapper {
     private fun getImageByStepTitle(title: String): Int? {
         return when {
             title.contains("emergency", ignoreCase = true) ||
-            title.contains("call 911", ignoreCase = true) ||
+            title.contains("call 112", ignoreCase = true) ||
             title.contains("call emergency", ignoreCase = true) -> R.drawable.emergency_call
 
             title.contains("CPR", ignoreCase = true) ||

@@ -65,12 +65,12 @@
                 android:maxLines="3" />
         </com.google.android.material.textfield.TextInputLayout>
 
-        <!-- Medical Conditions -->
+        <!-- Health Conditions -->
         <com.google.android.material.textfield.TextInputLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_marginTop="12dp"
-            android:hint="Medical Conditions (e.g., Diabetes, Asthma)"
+            android:hint="Health Conditions (e.g., Diabetes, Asthma)"
             style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox">
 
             <com.google.android.material.textfield.TextInputEditText
@@ -81,7 +81,7 @@
                 android:maxLines="3" />
         </com.google.android.material.textfield.TextInputLayout>
 
-        <!-- Emergency Notes -->
+        <!-- Notes -->
         <com.google.android.material.textfield.TextInputLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"

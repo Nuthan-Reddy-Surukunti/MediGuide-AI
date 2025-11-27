@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="utf-8"?>
+<vector xmlns:android="http://schemas.android.com/apk/res/android"
+    android:width="24dp"
+    android:height="24dp"
+    android:viewportWidth="24"
+    android:viewportHeight="24"
+    android:tint="@android:color/white">
+
+    <!-- Blood drops -->
+    <path
+        android:fillColor="@android:color/white"
+        android:pathData="M12,2C13,2 14,3 14,4C14,5 13,6 12,6C11,6 10,5 10,4C10,3 11,2 12,2M18,4C19,4 20,5 20,6C20,7 19,8 18,8C17,8 16,7 16,6C16,5 17,4 18,4M6,8C7,8 8,9 8,10C8,11 7,12 6,12C5,12 4,11 4,10C4,9 5,8 6,8" />
+
+    <!-- Bandage/first aid -->
+    <path
+        android:fillColor="@android:color/white"
+        android:pathData="M20.54,5.23L18.77,3.46C18.37,3.06 17.74,3.06 17.34,3.46L15.22,5.58L10.76,1.12C10.36,0.72 9.73,0.72 9.33,1.12L7.54,2.91C7.14,3.31 7.14,3.94 7.54,4.34L12,8.8L5.23,15.57C4.83,15.97 4.83,16.6 5.23,17L7,18.77C7.4,19.17 8.03,19.17 8.43,18.77L15.2,12L19.66,16.46C20.06,16.86 20.69,16.86 21.09,16.46L22.88,14.67C23.28,14.27 23.28,13.64 22.88,13.24L18.42,8.78L20.54,6.66C20.94,6.26 20.94,5.63 20.54,5.23Z" />
+
+</vector>
+

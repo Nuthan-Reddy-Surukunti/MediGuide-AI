@@ -5,50 +5,72 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:orientation="vertical"
-    android:padding="16dp"
     android:background="@color/background_primary"
     tools:context=".ui.guides.AllGuidesFragment">
 
     <!-- Search Bar -->
-    <com.google.android.material.textfield.TextInputLayout
-        android:id="@+id/tilSearch"
+    <com.google.android.material.card.MaterialCardView
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_marginBottom="16dp"
-        app:boxStrokeColor="@color/primary"
-        app:hintTextColor="@color/primary"
-        app:startIconDrawable="@android:drawable/ic_menu_search">
+        android:layout_marginHorizontal="16dp"
+        android:layout_marginTop="12dp"
+        android:layout_marginBottom="8dp"
+        app:cardCornerRadius="8dp"
+        app:cardElevation="2dp">
 
-        <com.google.android.material.textfield.TextInputEditText
+        <EditText
             android:id="@+id/etSearch"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
+            android:background="@android:color/transparent"
             android:hint="Search first aid guides..."
             android:imeOptions="actionSearch"
-            android:inputType="text" />
+            android:inputType="text"
+            android:padding="16dp"
+            android:drawableStart="@drawable/ic_search"
+            android:drawablePadding="12dp"
+            android:textColor="@color/text_primary"
+            android:textSize="16sp"
+            android:fontFamily="sans-serif"/>
+    </com.google.android.material.card.MaterialCardView>
 
-    </com.google.android.material.textfield.TextInputLayout>
 
-    <!-- Title -->
-    <TextView
-        android:id="@+id/tvTitle"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_marginBottom="16dp"
-        android:text="@string/all_guides_title"
-        android:textColor="@color/primary"
-        android:textSize="24sp"
-        android:textStyle="bold" />
-
-    <!-- Guides RecyclerView -->
-    <androidx.recyclerview.widget.RecyclerView
-        android:id="@+id/rvGuides"
+    <!-- ScrollView for entire content -->
+    <androidx.core.widget.NestedScrollView
         android:layout_width="match_parent"
         android:layout_height="0dp"
         android:layout_weight="1"
-        android:clipToPadding="false"
-        android:paddingBottom="16dp"
-        tools:listitem="@layout/item_guide_card" />
+        android:fillViewport="true">
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical">
+
+            <!-- Statistics Header -->
+            <include
+                android:id="@+id/layoutStatistics"
+                layout="@layout/header_guide_statistics" />
+
+            <!-- Emergency Quick Actions -->
+            <include
+                android:id="@+id/layoutEmergencyActions"
+                layout="@layout/header_emergency_actions" />
+
+            <!-- Guides RecyclerView -->
+            <androidx.recyclerview.widget.RecyclerView
+                android:id="@+id/rvGuides"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:nestedScrollingEnabled="false"
+                android:clipToPadding="false"
+                android:paddingHorizontal="8dp"
+                android:paddingBottom="16dp"
+                tools:listitem="@layout/item_guide_card_grid" />
+
+        </LinearLayout>
+
+    </androidx.core.widget.NestedScrollView>
 
 </LinearLayout>
 

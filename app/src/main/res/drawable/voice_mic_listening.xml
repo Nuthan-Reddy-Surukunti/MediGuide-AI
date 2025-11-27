@@ -1,0 +1,37 @@
+<?xml version="1.0" encoding="utf-8"?>
+<vector xmlns:android="http://schemas.android.com/apk/res/android"
+    android:width="24dp"
+    android:height="24dp"
+    android:viewportWidth="24"
+    android:viewportHeight="24"
+    android:tint="@color/success">
+
+    <!-- Microphone body -->
+    <path
+        android:fillColor="@color/success"
+        android:pathData="M12,2A3,3 0 0,1 15,5V11A3,3 0 0,1 12,14A3,3 0 0,1 9,11V5A3,3 0 0,1 12,2M19,11C19,14.53 16.39,17.44 13,17.93V21H11V17.93C7.61,17.44 5,14.53 5,11H7A5,5 0 0,0 12,16A5,5 0 0,0 17,11H19Z" />
+
+    <!-- Sound waves -->
+    <path
+        android:strokeWidth="2"
+        android:strokeColor="@color/success"
+        android:fillColor="#00000000"
+        android:pathData="M19,11C19,12 18.5,12.8 17.8,13.3" />
+    <path
+        android:strokeWidth="2"
+        android:strokeColor="@color/success"
+        android:fillColor="#00000000"
+        android:pathData="M21,11C21,13.5 20,15.7 18.4,17.2" />
+    <path
+        android:strokeWidth="2"
+        android:strokeColor="@color/success"
+        android:fillColor="#00000000"
+        android:pathData="M5,11C5,12 5.5,12.8 6.2,13.3" />
+    <path
+        android:strokeWidth="2"
+        android:strokeColor="@color/success"
+        android:fillColor="#00000000"
+        android:pathData="M3,11C3,13.5 4,15.7 5.6,17.2" />
+
+</vector>
+

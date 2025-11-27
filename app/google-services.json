@@ -15,6 +15,67 @@
       },
       "oauth_client": [
         {
+          "client_id": "938038014371-0trcmcdvnn62sppg0us55a3iril5rkld.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.example.firstaidapp",
+            "certificate_hash": "23b225f3fed50173d1a0a0983c4ad70c52c4fa8b"
+          }
+        },
+        {
+          "client_id": "938038014371-998u7f8dvknb2teet220aeu609u2k8ih.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.example.firstaidapp",
+            "certificate_hash": "4652530abeda2701085a28b7ab2bdf2fd9c80e4f"
+          }
+        },
+        {
+          "client_id": "938038014371-ubvhrr02fsqifv0p60o786m0m275e8no.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyDxEMdxIRXa080J8lLf94mCSytk-qVxraY"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "938038014371-ubvhrr02fsqifv0p60o786m0m275e8no.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    },
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:938038014371:android:b0180b1b16e7dc6301ea16",
+        "android_client_info": {
+          "package_name": "com.mediguide.firstaid"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "938038014371-0ta200chue49n98h2gobct4f7t4udguk.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.mediguide.firstaid",
+            "certificate_hash": "4652530abeda2701085a28b7ab2bdf2fd9c80e4f"
+          }
+        },
+        {
+          "client_id": "938038014371-avslu8tm0962duu4cfgdrmse4gv2fk90.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.mediguide.firstaid",
+            "certificate_hash": "23b225f3fed50173d1a0a0983c4ad70c52c4fa8b"
+          }
+        },
+        {
           "client_id": "938038014371-ubvhrr02fsqifv0p60o786m0m275e8no.apps.googleusercontent.com",
           "client_type": 3
         }
@@ -38,4 +99,3 @@
   ],
   "configuration_version": "1"
 }
-

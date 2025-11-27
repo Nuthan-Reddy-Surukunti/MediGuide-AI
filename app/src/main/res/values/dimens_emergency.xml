@@ -1,0 +1,35 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <!-- Emergency Mode Specific Dimensions -->
+
+    <!-- Touch Targets -->
+    <dimen name="emergency_touch_target">56dp</dimen>
+    <dimen name="emergency_button_height">64dp</dimen>
+    <dimen name="emergency_button_width">200dp</dimen>
+
+    <!-- Text Sizes -->
+    <dimen name="emergency_title_size">40sp</dimen>
+    <dimen name="emergency_subtitle_size">24sp</dimen>
+    <dimen name="emergency_instruction_size">20sp</dimen>
+    <dimen name="emergency_step_number_size">48sp</dimen>
+    <dimen name="emergency_button_text_size">18sp</dimen>
+
+    <!-- Padding and Margins -->
+    <dimen name="emergency_padding_large">32dp</dimen>
+    <dimen name="emergency_padding_medium">24dp</dimen>
+    <dimen name="emergency_padding_small">16dp</dimen>
+    <dimen name="emergency_margin_large">32dp</dimen>
+    <dimen name="emergency_margin_medium">24dp</dimen>
+    <dimen name="emergency_margin_small">16dp</dimen>
+
+    <!-- Progress Indicators -->
+    <dimen name="emergency_progress_height">8dp</dimen>
+    <dimen name="emergency_step_circle_size">80dp</dimen>
+    <dimen name="emergency_timer_size">120dp</dimen>
+
+    <!-- Card and Container -->
+    <dimen name="emergency_card_radius">16dp</dimen>
+    <dimen name="emergency_card_elevation">12dp</dimen>
+
+</resources>
+

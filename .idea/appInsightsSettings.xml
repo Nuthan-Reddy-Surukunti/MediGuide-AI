@@ -8,8 +8,8 @@
             <InsightsFilterSettings>
               <option name="connection">
                 <ConnectionSetting>
-                  <option name="appId" value="com.example.firstaidapp" />
-                  <option name="mobileSdkAppId" value="1:938038014371:android:7ceae7574cdd485301ea16" />
+                  <option name="appId" value="com.mediguide.firstaid" />
+                  <option name="mobileSdkAppId" value="1:938038014371:android:b0180b1b16e7dc6301ea16" />
                   <option name="projectId" value="sample-firebase-ai-app-4a522" />
                   <option name="projectNumber" value="938038014371" />
                 </ConnectionSetting>

@@ -1,0 +1,234 @@
+package com.mediguide.firstaid
+
+// MainActivity: app entry, permissions, and navigation setup
+
+import android.os.Bundle
+import androidx.activity.enableEdgeToEdge
+import androidx.activity.result.contract.ActivityResultContracts
+import androidx.appcompat.app.AlertDialog
+import androidx.appcompat.app.AppCompatActivity
+import androidx.appcompat.app.AppCompatDelegate
+import androidx.core.view.ViewCompat
+import androidx.core.view.WindowInsetsCompat
+import androidx.navigation.fragment.NavHostFragment
+import androidx.navigation.ui.setupWithNavController
+import com.mediguide.firstaid.utils.DialogHelper
+import com.mediguide.firstaid.utils.UserPreferencesManager
+import com.mediguide.firstaid.voice.VoicePermissionManager
+import com.google.android.material.bottomnavigation.BottomNavigationView
+import com.google.firebase.auth.FirebaseAuth
+
+/**
+ * MainActivity - Main entry point of the MediGuide AI Educational Training App
+ */
+class MainActivity : AppCompatActivity() {
+
+    private lateinit var voicePermissionManager: VoicePermissionManager
+    private val auth: FirebaseAuth by lazy { FirebaseAuth.getInstance() }
+
+    // Permission launcher for requesting multiple permissions
+    private val permissionLauncher = registerForActivityResult(
+        ActivityResultContracts.RequestMultiplePermissions()
+    ) { permissions ->
+        handlePermissionResults(permissions)
+    }
+
+    override fun onCreate(savedInstanceState: Bundle?) {
+        super.onCreate(savedInstanceState)
+
+        try {
+
+            // Initialize permission manager
+            voicePermissionManager = VoicePermissionManager(this)
+
+            // Enable edge-to-edge display for modern Android UI
+            enableEdgeToEdge()
+            setContentView(R.layout.activity_main)
+
+            // Handle system window insets for proper edge-to-edge display
+            ViewCompat.setOnApplyWindowInsetsListener(findViewById(R.id.main)) { v, insets ->
+                val systemBars = insets.getInsets(WindowInsetsCompat.Type.systemBars())
+                v.setPadding(systemBars.left, systemBars.top, systemBars.right, systemBars.bottom)
+                insets
+            }
+
+            setupNavigation()
+
+            // Only show learning dialogs if user is authenticated and this is initial creation (not recreation)
+            if (auth.currentUser != null && savedInstanceState == null) {
+                showLearningDialogs()
+            }
+
+
+            // Request required permissions for AI voice assistant
+            requestRequiredPermissions()
+
+            // Navigate to login if not authenticated
+            if (auth.currentUser == null) {
+                navigateToLogin()
+            }
+
+        } catch (e: Exception) {
+            e.printStackTrace()
+            // Fallback: set a simple content view if navigation setup fails
+            try {
+                setContentView(android.R.layout.activity_list_item)
+            } catch (fallbackException: Exception) {
+                fallbackException.printStackTrace()
+            }
+        }
+    }
+
+    private fun setupNavigation() {
+        try {
+            // Set up Navigation Component with NavHostFragment
+            val navHostFragment = supportFragmentManager.findFragmentById(R.id.nav_host_fragment) as? NavHostFragment
+            val navController = navHostFragment?.navController
+
+            // Configure bottom navigation with navigation controller
+            val bottomNavigationView = findViewById<BottomNavigationView>(R.id.bottom_navigation)
+
+            if (navController != null) {
+                bottomNavigationView?.setupWithNavController(navController)
+
+                navController.addOnDestinationChangedListener { _, destination, _ ->
+                    val isAuthScreen = destination.id == R.id.loginFragment || destination.id == R.id.signUpFragment
+                    bottomNavigationView?.visibility = if (isAuthScreen) android.view.View.GONE else android.view.View.VISIBLE
+                }
+            }
+
+        } catch (e: Exception) {
+            e.printStackTrace()
+            // Navigation setup failed, but app can still run
+        }
+    }
+
+    /**
+     * Show learning dialogs - welcome for first-time users, daily reminder for returning users
+     */
+    private fun showLearningDialogs() {
+        // Delay slightly to ensure UI is fully initialized
+        window.decorView.post {
+            try {
+                // Show welcome dialog first for new users
+                DialogHelper.showWelcomeDialog(this) {
+                    // After welcome dialog, show daily reminder if applicable
+                    DialogHelper.showDailyReminderDialog(this) {
+                        // When user clicks "Start Learning", navigate to home screen
+                        navigateToHomeScreen()
+                    }
+                }
+            } catch (e: Exception) {
+                e.printStackTrace()
+                // Failed to show dialog, but app can continue
+            }
+        }
+    }
+
+    /**
+     * Navigate to the home screen (guide list)
+     */
+    private fun navigateToHomeScreen() {
+        try {
+            val navHostFragment = supportFragmentManager.findFragmentById(R.id.nav_host_fragment) as? NavHostFragment
+            val navController = navHostFragment?.navController
+
+            // Navigate to home destination (guide list)
+            navController?.navigate(R.id.navigation_home)
+
+            // Also select home in bottom navigation
+            findViewById<BottomNavigationView>(R.id.bottom_navigation)?.selectedItemId = R.id.navigation_home
+        } catch (e: Exception) {
+            e.printStackTrace()
+            // Navigation failed, but app can still work
+        }
+    }
+
+    private fun navigateToLogin() {
+        try {
+            val navHostFragment = supportFragmentManager.findFragmentById(R.id.nav_host_fragment) as? NavHostFragment
+            val navController = navHostFragment?.navController
+            navController?.navigate(R.id.loginFragment)
+        } catch (e: Exception) {
+            e.printStackTrace()
+        }
+    }
+
+
+
+    /**
+     * Request all required permissions for AI voice assistant functionality
+     */
+    private fun requestRequiredPermissions() {
+        if (!voicePermissionManager.areAllPermissionsGranted()) {
+            val missingPermissions = voicePermissionManager.getMissingPermissions()
+
+            // Show rationale dialog for critical permissions
+            if (missingPermissions.contains(android.Manifest.permission.RECORD_AUDIO)) {
+                showPermissionRationaleDialog {
+                    permissionLauncher.launch(missingPermissions.toTypedArray())
+                }
+            } else {
+                // Request permissions directly
+                permissionLauncher.launch(missingPermissions.toTypedArray())
+            }
+        }
+    }
+
+    /**
+     * Handle the results of permission requests
+     */
+    private fun handlePermissionResults(permissions: Map<String, Boolean>) {
+        val deniedPermissions = permissions.filter { !it.value }.keys
+
+        if (deniedPermissions.isEmpty()) {
+            // All permissions granted - AI voice assistant is ready
+            return
+        }
+
+        // Check for critically denied permissions
+        val criticalPermissionsDenied = deniedPermissions.intersect(
+            setOf(
+                android.Manifest.permission.RECORD_AUDIO,
+                android.Manifest.permission.ACCESS_FINE_LOCATION,
+                android.Manifest.permission.CALL_PHONE
+            )
+        )
+
+        if (criticalPermissionsDenied.isNotEmpty()) {
+            showPermissionDeniedDialog(criticalPermissionsDenied.toList())
+        }
+    }
+
+    /**
+     * Show rationale dialog explaining why permissions are needed
+     */
+    private fun showPermissionRationaleDialog(onPositive: () -> Unit) {
+        DialogHelper.showPermissionRationaleDialog(this, onPositive)
+    }
+
+    /**
+     * Show dialog when critical permissions are denied
+     */
+    private fun showPermissionDeniedDialog(deniedPermissions: List<String>) {
+        val permissionNames = deniedPermissions.map { permission ->
+            when (permission) {
+                android.Manifest.permission.RECORD_AUDIO -> "Microphone"
+                android.Manifest.permission.ACCESS_FINE_LOCATION -> "Location"
+                android.Manifest.permission.CALL_PHONE -> "Phone"
+                else -> "Required Permission"
+            }
+        }.joinToString(", ")
+
+        AlertDialog.Builder(this)
+            .setTitle("Permissions Required")
+            .setMessage("The following permissions are required for full AI voice assistant functionality: $permissionNames\n\nYou can enable them in Settings.")
+            .setPositiveButton(getString(R.string.open_settings)) { _, _ ->
+                // Open app settings (you could implement this to redirect to app settings)
+            }
+            .setNegativeButton(getString(R.string.ok)) { dialog, _ ->
+                dialog.dismiss()
+            }
+            .show()
+    }
+}
